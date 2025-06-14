@@ -1,0 +1,51 @@
+.task-item {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.priority-high {
+  border-left: 4px solid #dc3545;
+}
+
+.priority-medium {
+  border-left: 4px solid #ffc107;
+}
+
+.priority-low {
+  border-left: 4px solid #28a745;
+}
+
+.category-badge {
+  font-size: 0.8em;
+  padding: 0.2em 0.6em;
+}
+
+.due-date {
+  font-size: 0.85em;
+  color: #6c757d;
+  
+  &.overdue {
+    color: #dc3545;
+    font-weight: bold;
+  }
+}
+
+.task-actions {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.task-item:hover .task-actions {
+  opacity: 1;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+.dropdown-item {
+  cursor: pointer;
+} 
