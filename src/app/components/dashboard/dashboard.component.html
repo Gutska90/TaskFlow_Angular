@@ -1,0 +1,231 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <i class="bi bi-check2-square me-2"></i>TaskFlow
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="currentFilter === 'all'" (click)="setFilter('all')" style="cursor: pointer;">Todas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="currentFilter === 'pending'" (click)="setFilter('pending')" style="cursor: pointer;">Pendientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="currentFilter === 'completed'" (click)="setFilter('completed')" style="cursor: pointer;">Completadas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/profile']">
+            <i class="bi bi-person-circle me-1"></i>Mi Perfil
+          </a>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center">
+        <div class="dropdown me-3">
+          <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            Ordenar por
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" (click)="setSort('date')" style="cursor: pointer;">Fecha</a></li>
+            <li><a class="dropdown-item" (click)="setSort('priority')" style="cursor: pointer;">Prioridad</a></li>
+            <li><a class="dropdown-item" (click)="setSort('category')" style="cursor: pointer;">Categoría</a></li>
+          </ul>
+        </div>
+
+        <span class="text-white me-3">Bienvenido, {{ currentUser }}</span>
+        <button (click)="logout()" class="btn btn-outline-light">
+          <i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="card-title mb-0">Mis Tareas</h3>
+            <div class="d-flex gap-2">
+              <div class="input-group" style="max-width: 300px;">
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="Buscar tareas..."
+                  [(ngModel)]="searchTerm"
+                  (ngModelChange)="onSearch($event)"
+                >
+                <button class="btn btn-outline-secondary" type="button" (click)="searchTerm = ''; onSearch('')">
+                  <i class="bi bi-x"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de nueva tarea -->
+          <div class="card mb-3">
+            <div class="card-body">
+              <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="row g-3">
+                <div class="col-md-6">
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="title"
+                    placeholder="Nueva tarea..."
+                    required
+                  >
+                </div>
+                <div class="col-md-3">
+                  <select class="form-select" formControlName="category" required>
+                    <option value="">Seleccionar categoría</option>
+                    <option value="trabajo">Trabajo</option>
+                    <option value="personal">Personal</option>
+                    <option value="estudio">Estudio</option>
+                    <option value="otros">Otros</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <select class="form-select" formControlName="priority" required>
+                    <option value="">Seleccionar prioridad</option>
+                    <option value="high">Alta</option>
+                    <option value="medium">Media</option>
+                    <option value="low">Baja</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <input 
+                    type="date" 
+                    class="form-control" 
+                    formControlName="dueDate"
+                    required
+                  >
+                </div>
+                <div class="col-md-6">
+                  <button type="submit" class="btn btn-primary w-100" [disabled]="!taskForm.valid">
+                    <i class="bi bi-plus-circle me-1"></i>Agregar Tarea
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Filtros -->
+          <div class="mb-3">
+            <div class="btn-group" role="group">
+              <button 
+                type="button" 
+                class="btn" 
+                [class.btn-primary]="currentCategory === 'all'"
+                [class.btn-outline-primary]="currentCategory !== 'all'"
+                (click)="setCategory('all')"
+              >Todas</button>
+              <button 
+                type="button" 
+                class="btn" 
+                [class.btn-primary]="currentCategory === 'trabajo'"
+                [class.btn-outline-primary]="currentCategory !== 'trabajo'"
+                (click)="setCategory('trabajo')"
+              >Trabajo</button>
+              <button 
+                type="button" 
+                class="btn" 
+                [class.btn-primary]="currentCategory === 'personal'"
+                [class.btn-outline-primary]="currentCategory !== 'personal'"
+                (click)="setCategory('personal')"
+              >Personal</button>
+              <button 
+                type="button" 
+                class="btn" 
+                [class.btn-primary]="currentCategory === 'estudio'"
+                [class.btn-outline-primary]="currentCategory !== 'estudio'"
+                (click)="setCategory('estudio')"
+              >Estudio</button>
+              <button 
+                type="button" 
+                class="btn" 
+                [class.btn-primary]="currentCategory === 'otros'"
+                [class.btn-outline-primary]="currentCategory !== 'otros'"
+                (click)="setCategory('otros')"
+              >Otros</button>
+            </div>
+          </div>
+
+          <!-- Lista de tareas -->
+          <div class="list-group">
+            <div *ngFor="let task of filteredTasks" 
+                 class="list-group-item list-group-item-action task-item"
+                 [class.priority-high]="task.priority === 'high'"
+                 [class.priority-medium]="task.priority === 'medium'"
+                 [class.priority-low]="task.priority === 'low'">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="form-check">
+                  <input 
+                    class="form-check-input" 
+                    type="checkbox" 
+                    [checked]="task.completed"
+                    (change)="toggleTaskComplete(task)"
+                  >
+                  <label class="form-check-label" [class.text-decoration-line-through]="task.completed">
+                    {{ task.title }}
+                  </label>
+                </div>
+                <div class="task-actions">
+                  <button class="btn btn-sm btn-danger" (click)="deleteTask(task.id)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <span class="badge bg-secondary category-badge">{{ task.category }}</span>
+                <small class="due-date" [class.overdue]="isOverdue(task)">
+                  Vence: {{ task.dueDate | date:'dd/MM/yyyy' }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <!-- Resumen -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title">Resumen</h3>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-2">
+              <span>Tareas pendientes:</span>
+              <span class="badge bg-primary">{{ pendingTasks }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Tareas completadas:</span>
+              <span class="badge bg-success">{{ completedTasks }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Tareas vencidas:</span>
+              <span class="badge bg-danger">{{ overdueTasks }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estadísticas por categoría -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title">Por Categoría</h3>
+          <div>
+            <div *ngFor="let category of categoryStats | keyvalue" class="d-flex justify-content-between mb-2">
+              <span>{{ category.key | titlecase }}:</span>
+              <span class="badge bg-secondary">{{ category.value }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

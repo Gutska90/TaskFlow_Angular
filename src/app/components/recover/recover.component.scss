@@ -1,0 +1,61 @@
+.recover-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .step-indicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    .step {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0.5rem;
+
+      &.active {
+        background-color: #007bff;
+        color: white;
+      }
+
+      &.completed {
+        background-color: #28a745;
+        color: white;
+      }
+    }
+  }
+
+  .login-link {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #007bff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+} 
