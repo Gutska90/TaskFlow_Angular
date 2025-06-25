@@ -1,0 +1,28 @@
+{
+  "name": "TaskFlow Angular",
+  "title": "TaskFlow - Sistema de Gestión de Tareas",
+  "description": "Aplicación Angular para gestión de tareas con roles de usuario",
+  "version": "1.0.0",
+  "tsconfig": "./tsconfig.json",
+  "output": "./documentation",
+  "theme": "material",
+  "hideGenerator": true,
+  "disablePrivate": false,
+  "disableProtected": false,
+  "disableInternal": false,
+  "silent": false,
+  "serve": true,
+  "port": 8080,
+  "open": true,
+  "assetsFolder": "./documentation/assets",
+  "includes": [
+    "src/**/*.ts"
+  ],
+  "excludes": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
+  "coverageTest": {
+    "threshold": 80
+  }
+} 

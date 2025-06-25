@@ -1,227 +1,262 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container">
-    <a class="navbar-brand" href="#">
-      <i class="bi bi-check2-square me-2"></i>TaskFlow
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="currentFilter === 'all'" (click)="setFilter('all')" style="cursor: pointer;">Todas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="currentFilter === 'pending'" (click)="setFilter('pending')" style="cursor: pointer;">Pendientes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="currentFilter === 'completed'" (click)="setFilter('completed')" style="cursor: pointer;">Completadas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/profile']">
-            <i class="bi bi-person-circle me-1"></i>Mi Perfil
-          </a>
-        </li>
-      </ul>
-      <div class="d-flex align-items-center">
-        <div class="dropdown me-3">
-          <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            Ordenar por
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <nav class="sidebar" [class.collapsed]="isMenuCollapsed">
+    <div class="sidebar-header">
+      <div class="brand">
+        <i class="bi bi-check2-square"></i>
+        <span *ngIf="!isMenuCollapsed">TaskFlow</span>
+      </div>
+      <button class="btn btn-link sidebar-toggle" (click)="toggleMenu()">
+        <i class="bi" [class.bi-chevron-left]="!isMenuCollapsed" [class.bi-chevron-right]="isMenuCollapsed"></i>
+      </button>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar">
+        <i class="bi bi-person-circle"></i>
+      </div>
+      <div class="user-info" *ngIf="!isMenuCollapsed">
+        <div class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</div>
+        <div class="user-role">{{ currentUser?.role === 'admin' ? 'Administrador' : 'Cliente' }}</div>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li *ngFor="let item of getMenuItems()" class="sidebar-item">
+        <a class="sidebar-link" 
+           [routerLink]="[item.route]" 
+           routerLinkActive="active"
+           [title]="isMenuCollapsed ? item.label : ''">
+          <i [class]="item.icon"></i>
+          <span *ngIf="!isMenuCollapsed">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer" *ngIf="!isMenuCollapsed">
+      <button class="btn btn-outline-danger w-100" (click)="logout()">
+        <i class="bi bi-box-arrow-right me-2"></i>
+        Cerrar Sesión
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content" [class.sidebar-collapsed]="isMenuCollapsed">
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+      <div class="top-nav-left">
+        <button class="btn btn-link d-lg-none" (click)="toggleMenu()">
+          <i class="bi bi-list"></i>
+        </button>
+        <h1 class="page-title">Dashboard</h1>
+      </div>
+      <div class="top-nav-right">
+        <div class="user-dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle me-2"></i>
+            {{ currentUser?.firstName }}
           </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" (click)="setSort('date')" style="cursor: pointer;">Fecha</a></li>
-            <li><a class="dropdown-item" (click)="setSort('priority')" style="cursor: pointer;">Prioridad</a></li>
-            <li><a class="dropdown-item" (click)="setSort('category')" style="cursor: pointer;">Categoría</a></li>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/profile']">
+              <i class="bi bi-person me-2"></i>Mi Perfil
+            </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" (click)="logout()">
+              <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+            </a></li>
           </ul>
         </div>
-
-        <span class="text-white me-3">Bienvenido, {{ currentUser }}</span>
-        <button (click)="logout()" class="btn btn-outline-light">
-          <i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión
-        </button>
       </div>
-    </div>
-  </div>
-</nav>
+    </nav>
 
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card shadow-sm mb-4">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="card-title mb-0">Mis Tareas</h3>
-            <div class="d-flex gap-2">
-              <div class="input-group" style="max-width: 300px;">
-                <input 
-                  type="text" 
-                  class="form-control" 
-                  placeholder="Buscar tareas..."
-                  [(ngModel)]="searchTerm"
-                  (ngModelChange)="onSearch($event)"
-                >
-                <button class="btn btn-outline-secondary" type="button" (click)="searchTerm = ''; onSearch('')">
-                  <i class="bi bi-x"></i>
-                </button>
-              </div>
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+      <!-- Stats Cards -->
+      <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-3">
+          <div class="stat-card stat-card-primary">
+            <div class="stat-card-icon">
+              <i class="bi bi-list-task"></i>
+            </div>
+            <div class="stat-card-content">
+              <h3 class="stat-card-number">{{ pendingTasks }}</h3>
+              <p class="stat-card-label">Tareas Pendientes</p>
             </div>
           </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-3">
+          <div class="stat-card stat-card-success">
+            <div class="stat-card-icon">
+              <i class="bi bi-check-circle"></i>
+            </div>
+            <div class="stat-card-content">
+              <h3 class="stat-card-number">{{ completedTasks }}</h3>
+              <p class="stat-card-label">Tareas Completadas</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-3">
+          <div class="stat-card stat-card-warning">
+            <div class="stat-card-icon">
+              <i class="bi bi-exclamation-triangle"></i>
+            </div>
+            <div class="stat-card-content">
+              <h3 class="stat-card-number">{{ overdueTasks }}</h3>
+              <p class="stat-card-label">Tareas Vencidas</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-3">
+          <div class="stat-card stat-card-info">
+            <div class="stat-card-icon">
+              <i class="bi bi-graph-up"></i>
+            </div>
+            <div class="stat-card-content">
+              <h3 class="stat-card-number">{{ tasks.length }}</h3>
+              <p class="stat-card-label">Total de Tareas</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-          <!-- Formulario de nueva tarea -->
-          <div class="card mb-3">
+      <!-- Quick Actions -->
+      <div class="row mb-4" *ngIf="isClient()">
+        <div class="col-12">
+          <div class="card">
             <div class="card-body">
-              <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="row g-3">
-                <div class="col-md-6">
-                  <input 
-                    type="text" 
-                    class="form-control" 
-                    formControlName="title"
-                    placeholder="Nueva tarea..."
-                    required
-                  >
+              <h5 class="card-title">Acciones Rápidas</h5>
+              <div class="row">
+                <div class="col-md-4 mb-2">
+                  <a [routerLink]="['/tasks/create']" class="btn btn-primary w-100">
+                    <i class="bi bi-plus-circle me-2"></i>Crear Nueva Tarea
+                  </a>
                 </div>
-                <div class="col-md-3">
-                  <select class="form-select" formControlName="category" required>
-                    <option value="">Seleccionar categoría</option>
-                    <option value="trabajo">Trabajo</option>
-                    <option value="personal">Personal</option>
-                    <option value="estudio">Estudio</option>
-                    <option value="otros">Otros</option>
-                  </select>
+                <div class="col-md-4 mb-2">
+                  <a [routerLink]="['/tasks']" class="btn btn-outline-primary w-100">
+                    <i class="bi bi-list-task me-2"></i>Ver Mis Tareas
+                  </a>
                 </div>
-                <div class="col-md-3">
-                  <select class="form-select" formControlName="priority" required>
-                    <option value="">Seleccionar prioridad</option>
-                    <option value="high">Alta</option>
-                    <option value="medium">Media</option>
-                    <option value="low">Baja</option>
-                  </select>
+                <div class="col-md-4 mb-2">
+                  <a [routerLink]="['/profile']" class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-person me-2"></i>Editar Perfil
+                  </a>
                 </div>
-                <div class="col-md-6">
-                  <input 
-                    type="date" 
-                    class="form-control" 
-                    formControlName="dueDate"
-                    required
-                  >
-                </div>
-                <div class="col-md-6">
-                  <button type="submit" class="btn btn-primary w-100" [disabled]="!taskForm.valid">
-                    <i class="bi bi-plus-circle me-1"></i>Agregar Tarea
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <!-- Filtros -->
-          <div class="mb-3">
-            <div class="btn-group" role="group">
-              <button 
-                type="button" 
-                class="btn" 
-                [class.btn-primary]="currentCategory === 'all'"
-                [class.btn-outline-primary]="currentCategory !== 'all'"
-                (click)="setCategory('all')"
-              >Todas</button>
-              <button 
-                type="button" 
-                class="btn" 
-                [class.btn-primary]="currentCategory === 'trabajo'"
-                [class.btn-outline-primary]="currentCategory !== 'trabajo'"
-                (click)="setCategory('trabajo')"
-              >Trabajo</button>
-              <button 
-                type="button" 
-                class="btn" 
-                [class.btn-primary]="currentCategory === 'personal'"
-                [class.btn-outline-primary]="currentCategory !== 'personal'"
-                (click)="setCategory('personal')"
-              >Personal</button>
-              <button 
-                type="button" 
-                class="btn" 
-                [class.btn-primary]="currentCategory === 'estudio'"
-                [class.btn-outline-primary]="currentCategory !== 'estudio'"
-                (click)="setCategory('estudio')"
-              >Estudio</button>
-              <button 
-                type="button" 
-                class="btn" 
-                [class.btn-primary]="currentCategory === 'otros'"
-                [class.btn-outline-primary]="currentCategory !== 'otros'"
-                (click)="setCategory('otros')"
-              >Otros</button>
-            </div>
-          </div>
-
-          <!-- Lista de tareas -->
-          <div class="list-group">
-            <div *ngFor="let task of filteredTasks" 
-                 class="list-group-item list-group-item-action task-item"
-                 [class.priority-high]="task.priority === 'high'"
-                 [class.priority-medium]="task.priority === 'medium'"
-                 [class.priority-low]="task.priority === 'low'">
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="form-check">
-                  <input 
-                    class="form-check-input" 
-                    type="checkbox" 
-                    [checked]="task.completed"
-                    (change)="toggleTaskComplete(task)"
-                  >
-                  <label class="form-check-label" [class.text-decoration-line-through]="task.completed">
-                    {{ task.title }}
-                  </label>
-                </div>
-                <div class="task-actions">
-                  <button class="btn btn-sm btn-danger" (click)="deleteTask(task.id)">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between align-items-center mt-2">
-                <span class="badge bg-secondary category-badge">{{ task.category }}</span>
-                <small class="due-date" [class.overdue]="isOverdue(task)">
-                  Vence: {{ task.dueDate | date:'dd/MM/yyyy' }}
-                </small>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <div class="col-md-4">
-      <!-- Resumen -->
-      <div class="card shadow-sm mb-4">
-        <div class="card-body">
-          <h3 class="card-title">Resumen</h3>
-          <div class="mb-3">
-            <div class="d-flex justify-content-between mb-2">
-              <span>Tareas pendientes:</span>
-              <span class="badge bg-primary">{{ pendingTasks }}</span>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <span>Tareas completadas:</span>
-              <span class="badge bg-success">{{ completedTasks }}</span>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <span>Tareas vencidas:</span>
-              <span class="badge bg-danger">{{ overdueTasks }}</span>
+
+      <!-- Admin Quick Actions -->
+      <div class="row mb-4" *ngIf="isAdmin()">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Panel de Administración</h5>
+              <div class="row">
+                <div class="col-md-4 mb-2">
+                  <a [routerLink]="['/admin/users']" class="btn btn-primary w-100">
+                    <i class="bi bi-people me-2"></i>Gestionar Usuarios
+                  </a>
+                </div>
+                <div class="col-md-4 mb-2">
+                  <a [routerLink]="['/admin/tasks']" class="btn btn-outline-primary w-100">
+                    <i class="bi bi-kanban me-2"></i>Gestionar Tareas
+                  </a>
+                </div>
+                <div class="col-md-4 mb-2">
+                  <a [routerLink]="['/admin']" class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-gear me-2"></i>Configuración
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Estadísticas por categoría -->
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h3 class="card-title">Por Categoría</h3>
-          <div>
-            <div *ngFor="let category of categoryStats | keyvalue" class="d-flex justify-content-between mb-2">
-              <span>{{ category.key | titlecase }}:</span>
-              <span class="badge bg-secondary">{{ category.value }}</span>
+      <!-- Recent Tasks -->
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">Tareas Recientes</h5>
+              <div class="btn-group" role="group">
+                <button 
+                  type="button" 
+                  class="btn btn-sm" 
+                  [class.btn-primary]="currentFilter === 'all'"
+                  [class.btn-outline-primary]="currentFilter !== 'all'"
+                  (click)="setFilter('all')"
+                >Todas</button>
+                <button 
+                  type="button" 
+                  class="btn btn-sm" 
+                  [class.btn-primary]="currentFilter === 'pending'"
+                  [class.btn-outline-primary]="currentFilter !== 'pending'"
+                  (click)="setFilter('pending')"
+                >Pendientes</button>
+                <button 
+                  type="button" 
+                  class="btn btn-sm" 
+                  [class.btn-primary]="currentFilter === 'completed'"
+                  [class.btn-outline-primary]="currentFilter !== 'completed'"
+                  (click)="setFilter('completed')"
+                >Completadas</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="list-group list-group-flush">
+                <div *ngFor="let task of filteredTasks.slice(0, 5)" 
+                     class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="d-flex align-items-center">
+                    <div class="form-check me-3">
+                      <input 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        [checked]="task.completed"
+                        (change)="toggleTaskComplete(task)"
+                      >
+                    </div>
+                    <div>
+                      <h6 class="mb-1" [class.text-decoration-line-through]="task.completed">
+                        {{ task.title }}
+                      </h6>
+                      <small class="text-muted">
+                        <span class="badge bg-secondary me-2">{{ task.category }}</span>
+                        Vence: {{ task.dueDate | date:'dd/MM/yyyy' }}
+                      </small>
+                    </div>
+                  </div>
+                  <div class="task-actions">
+                    <span class="badge" 
+                          [class.bg-danger]="task.priority === 'high'"
+                          [class.bg-warning]="task.priority === 'medium'"
+                          [class.bg-success]="task.priority === 'low'">
+                      {{ task.priority === 'high' ? 'Alta' : task.priority === 'medium' ? 'Media' : 'Baja' }}
+                    </span>
+                  </div>
+                </div>
+                <div *ngIf="filteredTasks.length === 0" class="text-center py-4">
+                  <i class="bi bi-inbox text-muted" style="font-size: 2rem;"></i>
+                  <p class="text-muted mt-2">No hay tareas para mostrar</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Estadísticas por Categoría</h5>
+            </div>
+            <div class="card-body">
+              <div *ngFor="let category of getCategoryStats()" class="d-flex justify-content-between align-items-center mb-2">
+                <span>{{ category.name }}</span>
+                <span class="badge bg-primary">{{ category.count }}</span>
+              </div>
             </div>
           </div>
         </div>

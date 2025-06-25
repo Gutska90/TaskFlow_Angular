@@ -4,6 +4,10 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 
+/**
+ * Componente de registro de usuarios
+ * Maneja el registro de nuevos usuarios con validaciones robustas
+ */
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -15,6 +19,8 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
+  isLoading: boolean = false;
+  passwordValidation: any = {};
 
   constructor(
     private fb: FormBuilder,
@@ -22,141 +28,159 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService
   ) {
     this.registerForm = this.fb.group({
+      firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       username: ['', [
         Validators.required,
-        Validators.minLength(4),
+        Validators.minLength(3),
         Validators.maxLength(20),
         Validators.pattern('[a-zA-Z0-9_]+')
       ]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(18),
-        this.passwordValidator()
-      ]],
+      password: ['', [Validators.required]],
       confirmPassword: ['', Validators.required],
-      birthDate: ['', [Validators.required, this.ageValidator()]],
-      shippingAddress: [''],
       termsAccepted: [false, Validators.requiredTrue]
     }, {
       validators: this.passwordMatchValidator
     });
 
-    // Agregar validador de coincidencia de contraseñas
+    // Escuchar cambios en la contraseña para validación en tiempo real
+    this.registerForm.get('password')?.valueChanges.subscribe(password => {
+      if (password) {
+        this.passwordValidation = this.authService.validatePassword(password);
+      }
+    });
+
+    // Validar coincidencia de contraseñas en tiempo real
     this.registerForm.get('confirmPassword')?.valueChanges.subscribe(() => {
-      if (this.registerForm.get('password')?.value !== this.registerForm.get('confirmPassword')?.value) {
-        this.registerForm.get('confirmPassword')?.setErrors({ mismatch: true });
-      } else {
-        this.registerForm.get('confirmPassword')?.setErrors(null);
-      }
+      this.validatePasswordMatch();
     });
-
-    // Mostrar usuarios existentes en la consola
-    this.authService.debugUsers();
   }
 
-  ngOnInit(): void {}
-
-  // Validator para contraseña (debe contener al menos un número y una mayúscula)
-  passwordValidator() {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      const hasNumber = /[0-9]/.test(control.value);
-      const hasUpperCase = /[A-Z]/.test(control.value);
-      
-      if (!hasNumber || !hasUpperCase) {
-        return {
-          passwordRequirements: {
-            hasNumber,
-            hasUpperCase
-          }
-        };
-      }
-      return null;
-    };
+  ngOnInit(): void {
+    // Si ya está autenticado, redirigir al dashboard
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
-  // Validator para edad mínima (13 años)
-  ageValidator() {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      if (!control.value) return null;
-      
-      const today = new Date();
-      const birthDate = new Date(control.value);
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const monthDiff = today.getMonth() - birthDate.getMonth();
-      
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-
-      return age >= 13 ? null : { minAge: true };
-    };
+  /**
+   * Valida que las contraseñas coincidan
+   */
+  private validatePasswordMatch(): void {
+    const password = this.registerForm.get('password')?.value;
+    const confirmPassword = this.registerForm.get('confirmPassword')?.value;
+    
+    if (password && confirmPassword && password !== confirmPassword) {
+      this.registerForm.get('confirmPassword')?.setErrors({ mismatch: true });
+    } else if (this.registerForm.get('confirmPassword')?.hasError('mismatch')) {
+      this.registerForm.get('confirmPassword')?.setErrors(null);
+    }
   }
 
-  // Validator para confirmar que las contraseñas coinciden
+  /**
+   * Validador para confirmar que las contraseñas coinciden
+   */
   passwordMatchValidator(g: FormGroup) {
-    return g.get('password')?.value === g.get('confirmPassword')?.value
-      ? null : {'mismatch': true};
+    const password = g.get('password')?.value;
+    const confirmPassword = g.get('confirmPassword')?.value;
+    
+    if (password && confirmPassword && password !== confirmPassword) {
+      return { mismatch: true };
+    }
+    return null;
   }
 
-  getFormValidationErrors() {
-    const errors: string[] = [];
-    Object.keys(this.registerForm.controls).forEach(key => {
-      const control = this.registerForm.get(key);
-      if (control?.errors) {
-        Object.keys(control.errors).forEach(keyError => {
-          errors.push(`${key} - ${keyError}`);
-        });
-      }
-    });
-
-    console.log('Form Errors:', errors);
-    console.log('Form Values:', this.registerForm.value);
-    console.log('Form Valid:', this.registerForm.valid);
-    return errors;
-  }
-
+  /**
+   * Maneja el envío del formulario de registro
+   */
   onSubmit(): void {
-    console.log('Form submitted');
-    this.getFormValidationErrors();
     this.errorMessage = '';
     this.successMessage = '';
     
     if (this.registerForm.valid) {
-      console.log('Form is valid');
-      const { email, password } = this.registerForm.value;
+      this.isLoading = true;
       
-      try {
-        if (this.authService.register(email, email, password)) {
-          console.log('Registration successful');
-          this.successMessage = 'Registro exitoso. Redirigiendo...';
-          setTimeout(() => {
-            this.router.navigate(['/dashboard']);
-          }, 1500);
-        } else {
-          console.log('Registration failed - username exists');
-          this.errorMessage = 'El nombre de usuario ya está en uso';
-        }
-      } catch (error) {
-        console.error('Registration error:', error);
-        this.errorMessage = 'Error al registrar el usuario';
+      const { firstName, lastName, username, email, password } = this.registerForm.value;
+      
+      const result = this.authService.register(username, email, password, firstName, lastName);
+      
+      if (result.success) {
+        this.successMessage = 'Registro exitoso. Redirigiendo al login...';
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+      } else {
+        this.errorMessage = result.message;
       }
-    } else {
-      console.log('Form is invalid');
-      this.errorMessage = 'Por favor, complete todos los campos correctamente';
       
-      // Marcar todos los campos como tocados para mostrar los errores
-      Object.keys(this.registerForm.controls).forEach(key => {
-        const control = this.registerForm.get(key);
-        control?.markAsTouched();
-      });
+      this.isLoading = false;
+    } else {
+      this.markFormGroupTouched();
+      this.errorMessage = 'Por favor, complete todos los campos correctamente';
     }
   }
 
-  onReset() {
+  /**
+   * Marca todos los campos del formulario como tocados para mostrar errores
+   */
+  private markFormGroupTouched(): void {
+    Object.keys(this.registerForm.controls).forEach(key => {
+      const control = this.registerForm.get(key);
+      control?.markAsTouched();
+    });
+  }
+
+  /**
+   * Verifica si un campo tiene errores y ha sido tocado
+   */
+  hasError(fieldName: string): boolean {
+    const field = this.registerForm.get(fieldName);
+    return !!(field?.invalid && field?.touched);
+  }
+
+  /**
+   * Obtiene el mensaje de error para un campo específico
+   */
+  getErrorMessage(fieldName: string): string {
+    const field = this.registerForm.get(fieldName);
+    
+    if (field?.hasError('required')) {
+      return 'Este campo es requerido';
+    }
+    
+    if (field?.hasError('email')) {
+      return 'Ingrese un email válido';
+    }
+    
+    if (field?.hasError('minlength')) {
+      const requiredLength = field.getError('minlength').requiredLength;
+      return `Mínimo ${requiredLength} caracteres`;
+    }
+    
+    if (field?.hasError('maxlength')) {
+      const requiredLength = field.getError('maxlength').requiredLength;
+      return `Máximo ${requiredLength} caracteres`;
+    }
+    
+    if (field?.hasError('pattern')) {
+      return 'Solo se permiten letras, números y guiones bajos';
+    }
+    
+    if (field?.hasError('mismatch')) {
+      return 'Las contraseñas no coinciden';
+    }
+    
+    return '';
+  }
+
+  /**
+   * Resetea el formulario
+   */
+  onReset(): void {
     this.registerForm.reset();
     this.errorMessage = '';
     this.successMessage = '';
+    this.passwordValidation = {};
   }
 } 

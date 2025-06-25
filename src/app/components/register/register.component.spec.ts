@@ -2,10 +2,22 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RegisterComponent } from './register.component';
+import { AuthService } from '../../services/auth.service';
+
+class MockAuthService {
+  register(username: string, email: string, password: string, firstName?: string, lastName?: string) { return { success: true, message: '' }; }
+  isAuthenticated() { return false; }
+  validatePassword() { return {}; }
+  login() { return { success: true, message: '' }; }
+  logout() { }
+  getCurrentUser() { return null; }
+  updateProfile() { return { success: true, message: '' }; }
+}
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
+  let authService: MockAuthService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -13,11 +25,13 @@ describe('RegisterComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         RegisterComponent
-      ]
+      ],
+      providers: [{ provide: AuthService, useClass: MockAuthService }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
+    authService = TestBed.inject(AuthService) as unknown as MockAuthService;
     fixture.detectChanges();
   });
 
@@ -46,24 +60,8 @@ describe('RegisterComponent', () => {
       passwordControl?.setValue('');
       expect(passwordControl?.errors?.['required']).toBeTruthy();
       
-      // Too short password
-      passwordControl?.setValue('abc12');
-      expect(passwordControl?.errors?.['minlength']).toBeTruthy();
-      
-      // Too long password
-      passwordControl?.setValue('abcdefghijklmnopqrstuvwxyz');
-      expect(passwordControl?.errors?.['maxlength']).toBeTruthy();
-      
-      // Missing number
-      passwordControl?.setValue('abcdefgH');
-      expect(passwordControl?.errors?.['passwordRequirements']).toBeTruthy();
-      
-      // Missing uppercase
-      passwordControl?.setValue('abcdefg1');
-      expect(passwordControl?.errors?.['passwordRequirements']).toBeTruthy();
-      
       // Valid password
-      passwordControl?.setValue('abcdefG1');
+      passwordControl?.setValue('Abcdef1!');
       expect(passwordControl?.errors).toBeNull();
     });
 
@@ -71,28 +69,27 @@ describe('RegisterComponent', () => {
       const passwordControl = component.registerForm.get('password');
       const confirmPasswordControl = component.registerForm.get('confirmPassword');
       
-      passwordControl?.setValue('ValidPass1');
-      confirmPasswordControl?.setValue('DifferentPass1');
+      passwordControl?.setValue('ValidPass1!');
+      confirmPasswordControl?.setValue('DifferentPass1!');
       expect(component.registerForm.errors?.['mismatch']).toBeTruthy();
       
-      confirmPasswordControl?.setValue('ValidPass1');
+      confirmPasswordControl?.setValue('ValidPass1!');
       expect(component.registerForm.errors?.['mismatch']).toBeFalsy();
     });
 
-    it('should validate minimum age requirement', () => {
-      const birthDateControl = component.registerForm.get('birthDate');
+    it('should validate required fields', () => {
+      const firstNameControl = component.registerForm.get('firstName');
+      const lastNameControl = component.registerForm.get('lastName');
+      const usernameControl = component.registerForm.get('username');
       
-      // Set date for someone who is 12 years old
-      const twelveYearsAgo = new Date();
-      twelveYearsAgo.setFullYear(twelveYearsAgo.getFullYear() - 12);
-      birthDateControl?.setValue(twelveYearsAgo.toISOString().split('T')[0]);
-      expect(birthDateControl?.errors?.['minAge']).toBeTruthy();
+      firstNameControl?.setValue('');
+      expect(firstNameControl?.errors?.['required']).toBeTruthy();
       
-      // Set date for someone who is 14 years old
-      const fourteenYearsAgo = new Date();
-      fourteenYearsAgo.setFullYear(fourteenYearsAgo.getFullYear() - 14);
-      birthDateControl?.setValue(fourteenYearsAgo.toISOString().split('T')[0]);
-      expect(birthDateControl?.errors).toBeNull();
+      lastNameControl?.setValue('');
+      expect(lastNameControl?.errors?.['required']).toBeTruthy();
+      
+      usernameControl?.setValue('');
+      expect(usernameControl?.errors?.['required']).toBeTruthy();
     });
   });
 
@@ -100,12 +97,12 @@ describe('RegisterComponent', () => {
     it('should reset form when onReset is called', () => {
       // Fill form with valid data
       component.registerForm.patchValue({
+        firstName: 'Test',
+        lastName: 'User',
         username: 'testuser',
         email: 'test@example.com',
-        password: 'ValidPass1',
-        confirmPassword: 'ValidPass1',
-        birthDate: '2000-01-01',
-        shippingAddress: '123 Test St',
+        password: 'ValidPass1!',
+        confirmPassword: 'ValidPass1!',
         termsAccepted: true
       });
       
@@ -120,11 +117,47 @@ describe('RegisterComponent', () => {
       expect(component.registerForm.get('email')?.value).toBeFalsy();
       expect(component.registerForm.get('password')?.value).toBeFalsy();
       expect(component.registerForm.get('confirmPassword')?.value).toBeFalsy();
-      expect(component.registerForm.get('birthDate')?.value).toBeFalsy();
-      expect(component.registerForm.get('shippingAddress')?.value).toBeFalsy();
+      expect(component.registerForm.get('firstName')?.value).toBeFalsy();
+      expect(component.registerForm.get('lastName')?.value).toBeFalsy();
       expect(component.registerForm.get('termsAccepted')?.value).toBeFalsy();
       expect(component.errorMessage).toBe('');
       expect(component.successMessage).toBe('');
+    });
+
+    it('should handle successful registration', () => {
+      spyOn(authService, 'register').and.returnValue({ success: true, message: 'Registro exitoso' });
+      
+      component.registerForm.patchValue({
+        firstName: 'Test',
+        lastName: 'User',
+        username: 'testuser',
+        email: 'test@example.com',
+        password: 'ValidPass1!',
+        confirmPassword: 'ValidPass1!',
+        termsAccepted: true
+      });
+      
+      component.onSubmit();
+      
+      expect(component.successMessage).toBe('Registro exitoso. Redirigiendo al login...');
+    });
+
+    it('should handle registration error', () => {
+      spyOn(authService, 'register').and.returnValue({ success: false, message: 'Usuario ya existe' });
+      
+      component.registerForm.patchValue({
+        firstName: 'Test',
+        lastName: 'User',
+        username: 'testuser',
+        email: 'test@example.com',
+        password: 'ValidPass1!',
+        confirmPassword: 'ValidPass1!',
+        termsAccepted: true
+      });
+      
+      component.onSubmit();
+      
+      expect(component.errorMessage).toBe('Usuario ya existe');
     });
   });
 }); 

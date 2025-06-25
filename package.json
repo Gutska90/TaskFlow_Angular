@@ -7,7 +7,12 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:taskflow-angular": "node dist/taskflow-angular/server/server.mjs"
+    "test:coverage": "ng test --code-coverage",
+    "serve:ssr:taskflow-angular": "node dist/taskflow-angular/server/server.mjs",
+    "docs:generate": "compodoc -p tsconfig.json -s",
+    "docs:serve": "compodoc -p tsconfig.json -s -w",
+    "lint": "ng lint",
+    "build:prod": "ng build --configuration production"
   },
   "private": true,
   "type": "module",
@@ -37,6 +42,8 @@
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
+    "@compodoc/compodoc": "^1.1.23",
+    "eslint": "^8.57.0",
     "jasmine-core": "~5.7.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

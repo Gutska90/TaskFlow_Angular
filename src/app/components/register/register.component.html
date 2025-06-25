@@ -1,30 +1,69 @@
 <div class="bg-light d-flex align-items-center vh-100">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-5">
+      <div class="col-md-8 col-lg-6">
         <div class="card shadow rounded-4">
           <div class="card-body p-4">
-            <h2 class="text-center mb-4">Registro de Usuario</h2>
+            <div class="text-center mb-4">
+              <h2 class="mb-2">TaskFlow</h2>
+              <p class="text-muted">Crea tu cuenta</p>
+            </div>
+            
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="on">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="firstName" class="form-label">Nombre</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    [class.is-invalid]="hasError('firstName')"
+                    [class.is-valid]="!hasError('firstName') && registerForm.get('firstName')?.value"
+                    id="firstName" 
+                    formControlName="firstName"
+                    autocomplete="given-name"
+                    placeholder="Tu nombre"
+                    required
+                  />
+                  <div class="invalid-feedback" *ngIf="hasError('firstName')">
+                    {{ getErrorMessage('firstName') }}
+                  </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <label for="lastName" class="form-label">Apellido</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    [class.is-invalid]="hasError('lastName')"
+                    [class.is-valid]="!hasError('lastName') && registerForm.get('lastName')?.value"
+                    id="lastName" 
+                    formControlName="lastName"
+                    autocomplete="family-name"
+                    placeholder="Tu apellido"
+                    required
+                  />
+                  <div class="invalid-feedback" *ngIf="hasError('lastName')">
+                    {{ getErrorMessage('lastName') }}
+                  </div>
+                </div>
+              </div>
+
               <div class="mb-3">
-                <label for="username" class="form-label">Usuario</label>
+                <label for="username" class="form-label">Nombre de Usuario</label>
                 <input 
                   type="text" 
                   class="form-control" 
+                  [class.is-invalid]="hasError('username')"
+                  [class.is-valid]="!hasError('username') && registerForm.get('username')?.value"
                   id="username" 
                   formControlName="username"
                   autocomplete="username"
+                  placeholder="nombre_usuario"
                   required
-                  minlength="4"
-                  maxlength="20"
-                  pattern="[a-zA-Z0-9_]+"
                 />
-                <div class="form-text">4-20 caracteres, solo letras, números y _</div>
-                <div *ngIf="registerForm.get('username')?.errors?.['required'] && registerForm.get('username')?.touched" class="text-danger">
-                  El usuario es requerido
-                </div>
-                <div *ngIf="registerForm.get('username')?.errors?.['minlength'] && registerForm.get('username')?.touched" class="text-danger">
-                  El usuario debe tener al menos 4 caracteres
+                <div class="form-text">3-20 caracteres, solo letras, números y guiones bajos</div>
+                <div class="invalid-feedback" *ngIf="hasError('username')">
+                  {{ getErrorMessage('username') }}
                 </div>
               </div>
 
@@ -33,17 +72,16 @@
                 <input 
                   type="email" 
                   class="form-control" 
+                  [class.is-invalid]="hasError('email')"
+                  [class.is-valid]="!hasError('email') && registerForm.get('email')?.value"
                   id="email" 
                   formControlName="email"
                   autocomplete="email"
+                  placeholder="tu@email.com"
                   required
                 />
-                <div class="form-text">Ingrese un correo electrónico válido</div>
-                <div *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched" class="text-danger">
-                  El correo electrónico es requerido
-                </div>
-                <div *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.touched" class="text-danger">
-                  Ingrese un correo electrónico válido
+                <div class="invalid-feedback" *ngIf="hasError('email')">
+                  {{ getErrorMessage('email') }}
                 </div>
               </div>
 
@@ -52,18 +90,27 @@
                 <input 
                   type="password" 
                   class="form-control" 
+                  [class.is-invalid]="hasError('password') || (passwordValidation.errors && passwordValidation.errors.length > 0)"
+                  [class.is-valid]="!hasError('password') && passwordValidation.isValid"
                   id="password" 
                   formControlName="password"
                   autocomplete="new-password"
+                  placeholder="Tu contraseña"
                   required
-                  minlength="6"
                 />
-                <div class="form-text">Mínimo 6 caracteres</div>
-                <div *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched" class="text-danger">
-                  La contraseña es requerida
+                
+                <!-- Validación de contraseña en tiempo real -->
+                <div *ngIf="passwordValidation.errors && passwordValidation.errors.length > 0" class="mt-2">
+                  <small class="text-danger">La contraseña debe cumplir:</small>
+                  <ul class="small text-danger mb-0">
+                    <li *ngFor="let error of passwordValidation.errors" [class.text-success]="false">
+                      {{ error }}
+                    </li>
+                  </ul>
                 </div>
-                <div *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched" class="text-danger">
-                  La contraseña debe tener al menos 6 caracteres
+                
+                <div class="invalid-feedback" *ngIf="hasError('password')">
+                  {{ getErrorMessage('password') }}
                 </div>
               </div>
 
@@ -72,99 +119,69 @@
                 <input 
                   type="password" 
                   class="form-control" 
+                  [class.is-invalid]="hasError('confirmPassword')"
+                  [class.is-valid]="!hasError('confirmPassword') && registerForm.get('confirmPassword')?.value"
                   id="confirmPassword" 
                   formControlName="confirmPassword"
                   autocomplete="new-password"
+                  placeholder="Repite tu contraseña"
                   required
                 />
-                <div class="form-text">Repita su contraseña</div>
-                <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched" class="text-danger">
-                  Las contraseñas no coinciden
+                <div class="invalid-feedback" *ngIf="hasError('confirmPassword')">
+                  {{ getErrorMessage('confirmPassword') }}
                 </div>
-              </div>
-
-              <div class="mb-3">
-                <label for="birthDate" class="form-label">Fecha de Nacimiento</label>
-                <input
-                  type="date"
-                  id="birthDate"
-                  formControlName="birthDate"
-                  class="form-control"
-                  [ngClass]="{'is-invalid': registerForm.get('birthDate')?.invalid && registerForm.get('birthDate')?.touched}"
-                >
-                <div class="invalid-feedback" *ngIf="registerForm.get('birthDate')?.errors?.['required'] && registerForm.get('birthDate')?.touched">
-                  La fecha de nacimiento es requerida
-                </div>
-                <div class="invalid-feedback" *ngIf="registerForm.get('birthDate')?.errors?.['minAge'] && registerForm.get('birthDate')?.touched">
-                  Debes tener al menos 13 años para registrarte
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <label for="shippingAddress" class="form-label">Dirección de Despacho (Opcional)</label>
-                <textarea
-                  id="shippingAddress"
-                  formControlName="shippingAddress"
-                  class="form-control"
-                  rows="3"
-                ></textarea>
               </div>
 
               <div class="mb-3 form-check">
                 <input 
                   type="checkbox" 
                   class="form-check-input" 
+                  [class.is-invalid]="hasError('termsAccepted')"
                   id="termsCheck" 
                   formControlName="termsAccepted"
                 />
                 <label class="form-check-label" for="termsCheck">
                   Acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">términos y condiciones</a>
                 </label>
-                <div *ngIf="registerForm.get('termsAccepted')?.errors?.['required'] && registerForm.get('termsAccepted')?.touched" class="text-danger">
+                <div class="invalid-feedback" *ngIf="hasError('termsAccepted')">
                   Debes aceptar los términos y condiciones
                 </div>
               </div>
 
               <div *ngIf="errorMessage" class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle me-2"></i>
                 {{ errorMessage }}
               </div>
 
               <div *ngIf="successMessage" class="alert alert-success">
+                <i class="bi bi-check-circle me-2"></i>
                 {{ successMessage }}
               </div>
 
               <div class="d-grid gap-2">
                 <button 
                   type="submit" 
-                  class="btn btn-primary w-100" 
-                  [disabled]="!registerForm.valid"
+                  class="btn btn-primary" 
+                  [disabled]="!registerForm.valid || isLoading"
                 >
-                  Registrarse
+                  <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                  <i *ngIf="!isLoading" class="bi bi-person-plus me-1"></i>
+                  {{ isLoading ? 'Creando cuenta...' : 'Crear Cuenta' }}
                 </button>
                 
-                <!-- Botón para limpiar el formulario -->
                 <button 
                   type="button" 
                   (click)="onReset()" 
-                  class="btn btn-secondary w-100"
+                  class="btn btn-outline-secondary"
                 >
+                  <i class="bi bi-arrow-clockwise me-1"></i>
                   Limpiar Formulario
                 </button>
                 
-                <a [routerLink]="['/login']" class="btn btn-outline-secondary w-100">Volver al Login</a>
-              </div>
-
-              <!-- Debug info -->
-              <div class="mt-3 small text-muted">
-                <div>Estado del formulario:</div>
-                <ul>
-                  <li>Formulario válido: {{ registerForm.valid }}</li>
-                  <li>Usuario válido: {{ registerForm.get('username')?.valid }}</li>
-                  <li>Email válido: {{ registerForm.get('email')?.valid }}</li>
-                  <li>Contraseña válida: {{ registerForm.get('password')?.valid }}</li>
-                  <li>Confirmación válida: {{ registerForm.get('confirmPassword')?.valid }}</li>
-                  <li>Términos aceptados: {{ registerForm.get('termsAccepted')?.value }}</li>
-                </ul>
+                <a [routerLink]="['/login']" class="btn btn-outline-primary">
+                  <i class="bi bi-arrow-left me-1"></i>
+                  Ya tengo cuenta
+                </a>
               </div>
             </form>
           </div>
@@ -175,23 +192,28 @@
 
   <!-- Modal de Términos y Condiciones -->
   <div class="modal fade" id="termsModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Términos y Condiciones</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <p>Al registrarte en TaskFlow, aceptas:</p>
+          <h6>Al registrarte en TaskFlow, aceptas:</h6>
           <ul>
             <li>Proporcionar información veraz y actualizada</li>
             <li>Mantener la confidencialidad de tu cuenta</li>
             <li>No compartir tus credenciales de acceso</li>
             <li>Usar la plataforma de acuerdo a las políticas establecidas</li>
+            <li>Respetar los derechos de otros usuarios</li>
+            <li>No usar la plataforma para actividades ilegales</li>
           </ul>
+          <p class="text-muted small">
+            TaskFlow se reserva el derecho de suspender o cancelar cuentas que violen estos términos.
+          </p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
         </div>
       </div>
     </div>
