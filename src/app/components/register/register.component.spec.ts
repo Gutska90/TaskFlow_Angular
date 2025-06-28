@@ -1,163 +1,216 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 import { RegisterComponent } from './register.component';
 import { AuthService } from '../../services/auth.service';
-
-class MockAuthService {
-  register(username: string, email: string, password: string, firstName?: string, lastName?: string) { return { success: true, message: '' }; }
-  isAuthenticated() { return false; }
-  validatePassword() { return {}; }
-  login() { return { success: true, message: '' }; }
-  logout() { }
-  getCurrentUser() { return null; }
-  updateProfile() { return { success: true, message: '' }; }
-}
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
-  let authService: MockAuthService;
+  let authService: jasmine.SpyObj<AuthService>;
+  let router: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['register', 'isAuthenticated', 'validatePassword']);
+    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
     await TestBed.configureTestingModule({
-      imports: [
-        ReactiveFormsModule,
-        RouterTestingModule,
-        RegisterComponent
-      ],
-      providers: [{ provide: AuthService, useClass: MockAuthService }]
+      imports: [RegisterComponent, ReactiveFormsModule],
+      providers: [
+        { provide: AuthService, useValue: authServiceSpy },
+        { provide: Router, useValue: routerSpy }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
-    authService = TestBed.inject(AuthService) as unknown as MockAuthService;
-    fixture.detectChanges();
+    authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
+    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('Form Validation', () => {
-    it('should validate email format', () => {
-      const emailControl = component.registerForm.get('email');
-      
-      emailControl?.setValue('');
-      expect(emailControl?.errors?.['required']).toBeTruthy();
-      
-      emailControl?.setValue('invalid-email');
-      expect(emailControl?.errors?.['email']).toBeTruthy();
-      
-      emailControl?.setValue('valid@email.com');
-      expect(emailControl?.errors).toBeNull();
-    });
-
-    it('should validate password requirements', () => {
-      const passwordControl = component.registerForm.get('password');
-      
-      // Empty password
-      passwordControl?.setValue('');
-      expect(passwordControl?.errors?.['required']).toBeTruthy();
-      
-      // Valid password
-      passwordControl?.setValue('Abcdef1!');
-      expect(passwordControl?.errors).toBeNull();
-    });
-
-    it('should validate matching passwords', () => {
-      const passwordControl = component.registerForm.get('password');
-      const confirmPasswordControl = component.registerForm.get('confirmPassword');
-      
-      passwordControl?.setValue('ValidPass1!');
-      confirmPasswordControl?.setValue('DifferentPass1!');
-      expect(component.registerForm.errors?.['mismatch']).toBeTruthy();
-      
-      confirmPasswordControl?.setValue('ValidPass1!');
-      expect(component.registerForm.errors?.['mismatch']).toBeFalsy();
-    });
-
-    it('should validate required fields', () => {
-      const firstNameControl = component.registerForm.get('firstName');
-      const lastNameControl = component.registerForm.get('lastName');
-      const usernameControl = component.registerForm.get('username');
-      
-      firstNameControl?.setValue('');
-      expect(firstNameControl?.errors?.['required']).toBeTruthy();
-      
-      lastNameControl?.setValue('');
-      expect(lastNameControl?.errors?.['required']).toBeTruthy();
-      
-      usernameControl?.setValue('');
-      expect(usernameControl?.errors?.['required']).toBeTruthy();
-    });
+  it('should initialize with empty form', () => {
+    expect(component.registerForm.get('firstName')?.value).toBe('');
+    expect(component.registerForm.get('lastName')?.value).toBe('');
+    expect(component.registerForm.get('username')?.value).toBe('');
+    expect(component.registerForm.get('email')?.value).toBe('');
+    expect(component.registerForm.get('password')?.value).toBe('');
+    expect(component.registerForm.get('confirmPassword')?.value).toBe('');
+    expect(component.registerForm.get('termsAccepted')?.value).toBe(false);
   });
 
-  describe('Form Actions', () => {
-    it('should reset form when onReset is called', () => {
-      // Fill form with valid data
-      component.registerForm.patchValue({
-        firstName: 'Test',
-        lastName: 'User',
-        username: 'testuser',
-        email: 'test@example.com',
-        password: 'ValidPass1!',
-        confirmPassword: 'ValidPass1!',
-        termsAccepted: true
-      });
+  it('should validate required fields', () => {
+    const form = component.registerForm;
+    
+    // Marcar campos como tocados
+    form.get('firstName')?.markAsTouched();
+    form.get('lastName')?.markAsTouched();
+    form.get('username')?.markAsTouched();
+    form.get('email')?.markAsTouched();
+    form.get('password')?.markAsTouched();
+    form.get('confirmPassword')?.markAsTouched();
+    form.get('termsAccepted')?.markAsTouched();
+    
+    expect(form.get('firstName')?.hasError('required')).toBeTruthy();
+    expect(form.get('lastName')?.hasError('required')).toBeTruthy();
+    expect(form.get('username')?.hasError('required')).toBeTruthy();
+    expect(form.get('email')?.hasError('required')).toBeTruthy();
+    expect(form.get('password')?.hasError('required')).toBeTruthy();
+    expect(form.get('confirmPassword')?.hasError('required')).toBeTruthy();
+    expect(form.get('termsAccepted')?.hasError('required')).toBeTruthy();
+  });
+
+    it('should validate email format', () => {
+      const emailControl = component.registerForm.get('email');
+      emailControl?.setValue('invalid-email');
+    emailControl?.markAsTouched();
       
-      // Verify form is filled
-      expect(component.registerForm.get('email')?.value).toBe('test@example.com');
-      
-      // Reset form
-      component.onReset();
-      
-      // Verify all fields are reset
-      expect(component.registerForm.get('username')?.value).toBeFalsy();
-      expect(component.registerForm.get('email')?.value).toBeFalsy();
-      expect(component.registerForm.get('password')?.value).toBeFalsy();
-      expect(component.registerForm.get('confirmPassword')?.value).toBeFalsy();
-      expect(component.registerForm.get('firstName')?.value).toBeFalsy();
-      expect(component.registerForm.get('lastName')?.value).toBeFalsy();
-      expect(component.registerForm.get('termsAccepted')?.value).toBeFalsy();
-      expect(component.errorMessage).toBe('');
-      expect(component.successMessage).toBe('');
+    expect(emailControl?.hasError('email')).toBeTruthy();
+    });
+
+  it('should validate username pattern', () => {
+    const usernameControl = component.registerForm.get('username');
+    usernameControl?.setValue('user@name');
+    usernameControl?.markAsTouched();
+    
+    expect(usernameControl?.hasError('pattern')).toBeTruthy();
+    });
+
+  it('should validate minimum length for names', () => {
+    const firstNameControl = component.registerForm.get('firstName');
+    firstNameControl?.setValue('a');
+    firstNameControl?.markAsTouched();
+    
+    expect(firstNameControl?.hasError('minlength')).toBeTruthy();
+    });
+
+  it('should validate maximum length for names', () => {
+      const firstNameControl = component.registerForm.get('firstName');
+    firstNameControl?.setValue('a'.repeat(51));
+    firstNameControl?.markAsTouched();
+    
+    expect(firstNameControl?.hasError('maxlength')).toBeTruthy();
+  });
+
+  it('should validate password match', () => {
+    const form = component.registerForm;
+    form.patchValue({
+      password: 'TestPass123!',
+      confirmPassword: 'DifferentPass123!'
+    });
+    
+    form.get('confirmPassword')?.markAsTouched();
+    
+    expect(form.get('confirmPassword')?.hasError('mismatch')).toBeTruthy();
+    });
+
+  it('should not show mismatch error when passwords match', () => {
+    const form = component.registerForm;
+    form.patchValue({
+      password: 'TestPass123!',
+      confirmPassword: 'TestPass123!'
+    });
+    
+    form.get('confirmPassword')?.markAsTouched();
+    
+    expect(form.get('confirmPassword')?.hasError('mismatch')).toBeFalsy();
+  });
+
+  it('should show correct error messages', () => {
+    const form = component.registerForm;
+    form.get('firstName')?.markAsTouched();
+    form.get('email')?.setValue('invalid-email');
+    form.get('email')?.markAsTouched();
+    
+    expect(component.getErrorMessage('firstName')).toBe('Este campo es requerido');
+    expect(component.getErrorMessage('email')).toBe('Ingrese un email válido');
     });
 
     it('should handle successful registration', () => {
-      spyOn(authService, 'register').and.returnValue({ success: true, message: 'Registro exitoso' });
+    authService.register.and.returnValue({ success: true, message: 'Usuario registrado exitosamente' });
+    authService.isAuthenticated.and.returnValue(false);
       
       component.registerForm.patchValue({
-        firstName: 'Test',
-        lastName: 'User',
-        username: 'testuser',
-        email: 'test@example.com',
-        password: 'ValidPass1!',
-        confirmPassword: 'ValidPass1!',
+      firstName: 'John',
+      lastName: 'Doe',
+      username: 'johndoe',
+      email: 'john@example.com',
+      password: 'TestPass123!',
+      confirmPassword: 'TestPass123!',
         termsAccepted: true
       });
       
       component.onSubmit();
       
+    expect(authService.register).toHaveBeenCalledWith('johndoe', 'john@example.com', 'TestPass123!', 'John', 'Doe');
       expect(component.successMessage).toBe('Registro exitoso. Redirigiendo al login...');
     });
 
-    it('should handle registration error', () => {
-      spyOn(authService, 'register').and.returnValue({ success: false, message: 'Usuario ya existe' });
+  it('should handle failed registration', () => {
+    authService.register.and.returnValue({ success: false, message: 'El usuario ya existe' });
+    authService.isAuthenticated.and.returnValue(false);
       
       component.registerForm.patchValue({
-        firstName: 'Test',
-        lastName: 'User',
-        username: 'testuser',
-        email: 'test@example.com',
-        password: 'ValidPass1!',
-        confirmPassword: 'ValidPass1!',
+      firstName: 'John',
+      lastName: 'Doe',
+      username: 'existinguser',
+      email: 'john@example.com',
+      password: 'TestPass123!',
+      confirmPassword: 'TestPass123!',
         termsAccepted: true
       });
       
       component.onSubmit();
       
-      expect(component.errorMessage).toBe('Usuario ya existe');
+    expect(component.errorMessage).toBe('El usuario ya existe');
     });
+
+  it('should not submit if form is invalid', () => {
+    component.registerForm.patchValue({
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      termsAccepted: false
+    });
+    
+    component.onSubmit();
+    
+    expect(authService.register).not.toHaveBeenCalled();
+    expect(component.errorMessage).toBe('Por favor, complete todos los campos correctamente');
+  });
+
+  it('should redirect to dashboard if already authenticated', () => {
+    authService.isAuthenticated.and.returnValue(true);
+    
+    component.ngOnInit();
+    
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+  });
+
+  it('should reset form correctly', () => {
+    component.registerForm.patchValue({
+      firstName: 'John',
+      lastName: 'Doe',
+      username: 'johndoe',
+      email: 'john@example.com',
+      password: 'TestPass123!',
+      confirmPassword: 'TestPass123!',
+      termsAccepted: true
+    });
+    
+    component.errorMessage = 'Some error';
+    component.successMessage = 'Some success';
+    
+    component.onReset();
+    
+    expect(component.registerForm.get('firstName')?.value).toBe('');
+    expect(component.errorMessage).toBe('');
+    expect(component.successMessage).toBe('');
   });
 }); 

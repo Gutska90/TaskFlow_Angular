@@ -1,0 +1,3166 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>taskflow-angular documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">taskflow-angular documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DashboardComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/dashboard/dashboard.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente principal del dashboard
+Muestra el menú dinámico según el rol del usuario y las estadísticas</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-dashboard</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>FormsModule</code>
+                            <code>RouterModule</code>
+                            <code>DatePipe</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./dashboard.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./dashboard.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#categoryStats" >categoryStats</a>
+                            </li>
+                            <li>
+                                <a href="#completedTasks" >completedTasks</a>
+                            </li>
+                            <li>
+                                <a href="#currentCategory" >currentCategory</a>
+                            </li>
+                            <li>
+                                <a href="#currentFilter" >currentFilter</a>
+                            </li>
+                            <li>
+                                <a href="#currentSort" >currentSort</a>
+                            </li>
+                            <li>
+                                <a href="#currentUser" >currentUser</a>
+                            </li>
+                            <li>
+                                <a href="#filteredTasks" >filteredTasks</a>
+                            </li>
+                            <li>
+                                <a href="#isMenuCollapsed" >isMenuCollapsed</a>
+                            </li>
+                            <li>
+                                <a href="#menuItems" >menuItems</a>
+                            </li>
+                            <li>
+                                <a href="#overdueTasks" >overdueTasks</a>
+                            </li>
+                            <li>
+                                <a href="#pendingTasks" >pendingTasks</a>
+                            </li>
+                            <li>
+                                <a href="#searchTerm" >searchTerm</a>
+                            </li>
+                            <li>
+                                <a href="#taskForm" >taskForm</a>
+                            </li>
+                            <li>
+                                <a href="#tasks" >tasks</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#deleteTask" >deleteTask</a>
+                            </li>
+                            <li>
+                                <a href="#getCategoryStats" >getCategoryStats</a>
+                            </li>
+                            <li>
+                                <a href="#getMenuItems" >getMenuItems</a>
+                            </li>
+                            <li>
+                                <a href="#hasRole" >hasRole</a>
+                            </li>
+                            <li>
+                                <a href="#isAdmin" >isAdmin</a>
+                            </li>
+                            <li>
+                                <a href="#isClient" >isClient</a>
+                            </li>
+                            <li>
+                                <a href="#isOverdue" >isOverdue</a>
+                            </li>
+                            <li>
+                                <a href="#loadTasks" >loadTasks</a>
+                            </li>
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#navigateTo" >navigateTo</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onSearch" >onSearch</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#setCategory" >setCategory</a>
+                            </li>
+                            <li>
+                                <a href="#setFilter" >setFilter</a>
+                            </li>
+                            <li>
+                                <a href="#setSort" >setSort</a>
+                            </li>
+                            <li>
+                                <a href="#sortTasks" >sortTasks</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMenu" >toggleMenu</a>
+                            </li>
+                            <li>
+                                <a href="#toggleTaskComplete" >toggleTaskComplete</a>
+                            </li>
+                            <li>
+                                <a href="#updateFilteredTasks" >updateFilteredTasks</a>
+                            </li>
+                            <li>
+                                <a href="#updateStats" >updateStats</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: FormBuilder, router: Router, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, taskService: <a href="../injectables/TaskService.html" target="_self">TaskService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:87</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>taskService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TaskService.html" target="_self" >TaskService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteTask"></a>
+                    <span class="name">
+                        <span ><b>deleteTask</b></span>
+                        <a href="#deleteTask"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteTask(taskId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="224"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:224</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Elimina una tarea</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>taskId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCategoryStats"></a>
+                    <span class="name">
+                        <span ><b>getCategoryStats</b></span>
+                        <a href="#getCategoryStats"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCategoryStats()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="288"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:288</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene las estadísticas de categorías en formato de array</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Array&lt;literal type&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMenuItems"></a>
+                    <span class="name">
+                        <span ><b>getMenuItems</b></span>
+                        <a href="#getMenuItems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMenuItems()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:121</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene los elementos del menú filtrados por el rol del usuario actual</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem[]</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasRole"></a>
+                    <span class="name">
+                        <span ><b>hasRole</b></span>
+                        <a href="#hasRole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hasRole(role: <a href="../undefineds/UserRole.html" target="_self">UserRole</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifica si el usuario actual tiene un rol específico</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>role</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/enumerations.html#UserRole" target="_self" >UserRole</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAdmin"></a>
+                    <span class="name">
+                        <span ><b>isAdmin</b></span>
+                        <a href="#isAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isAdmin()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifica si el usuario actual es administrador</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isClient"></a>
+                    <span class="name">
+                        <span ><b>isClient</b></span>
+                        <a href="#isClient"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isClient()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:144</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifica si el usuario actual es cliente</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isOverdue"></a>
+                    <span class="name">
+                        <span ><b>isOverdue</b></span>
+                        <a href="#isOverdue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isOverdue(task: <a href="../interfaces/Task.html" target="_self">Task</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="265"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:265</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifica si una tarea está vencida</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>task</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Task.html" target="_self" >Task</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadTasks"></a>
+                    <span class="name">
+                        <span ><b>loadTasks</b></span>
+                        <a href="#loadTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadTasks()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga las tareas del usuario</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="279"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:279</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cierra la sesión del usuario</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigateTo"></a>
+                    <span class="name">
+                        <span ><b>navigateTo</b></span>
+                        <a href="#navigateTo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>navigateTo(route: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="298"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:298</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Navega a una ruta específica</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>route</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:103</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSearch"></a>
+                    <span class="name">
+                        <span ><b>onSearch</b></span>
+                        <a href="#onSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSearch(term: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="257"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:257</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja la búsqueda de tareas</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>term</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:160</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja el envío del formulario de nueva tarea</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setCategory"></a>
+                    <span class="name">
+                        <span ><b>setCategory</b></span>
+                        <a href="#setCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setCategory(category: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="241"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:241</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Establece la categoría de filtro</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>category</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setFilter"></a>
+                    <span class="name">
+                        <span ><b>setFilter</b></span>
+                        <a href="#setFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setFilter(filter: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="233"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:233</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Establece el filtro de tareas</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>filter</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setSort"></a>
+                    <span class="name">
+                        <span ><b>setSort</b></span>
+                        <a href="#setSort"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setSort(sort: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="249"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:249</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Establece el orden de las tareas</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sort</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sortTasks"></a>
+                    <span class="name">
+                        <span ><b>sortTasks</b></span>
+                        <a href="#sortTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sortTasks()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="188"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:188</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ordena las tareas según el criterio seleccionado</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleMenu</b></span>
+                        <a href="#toggleMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMenu()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="272"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:272</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Alterna el estado del menú lateral</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleTaskComplete"></a>
+                    <span class="name">
+                        <span ><b>toggleTaskComplete</b></span>
+                        <a href="#toggleTaskComplete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleTaskComplete(task: <a href="../interfaces/Task.html" target="_self">Task</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="217"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:217</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cambia el estado de completado de una tarea</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>task</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Task.html" target="_self" >Task</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateFilteredTasks"></a>
+                    <span class="name">
+                        <span ><b>updateFilteredTasks</b></span>
+                        <a href="#updateFilteredTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateFilteredTasks()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="170"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:170</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Actualiza las tareas filtradas según los criterios actuales</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateStats"></a>
+                    <span class="name">
+                        <span ><b>updateStats</b></span>
+                        <a href="#updateStats"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateStats()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="206"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:206</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Actualiza las estadísticas de las tareas</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categoryStats"></a>
+                    <span class="name">
+                        <span ><b>categoryStats</b></span>
+                        <a href="#categoryStats"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="completedTasks"></a>
+                    <span class="name">
+                        <span ><b>completedTasks</b></span>
+                        <a href="#completedTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentCategory"></a>
+                    <span class="name">
+                        <span ><b>currentCategory</b></span>
+                        <a href="#currentCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentFilter"></a>
+                    <span class="name">
+                        <span ><b>currentFilter</b></span>
+                        <a href="#currentFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentSort"></a>
+                    <span class="name">
+                        <span ><b>currentSort</b></span>
+                        <a href="#currentSort"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;date&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentUser"></a>
+                    <span class="name">
+                        <span ><b>currentUser</b></span>
+                        <a href="#currentUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredTasks"></a>
+                    <span class="name">
+                        <span ><b>filteredTasks</b></span>
+                        <a href="#filteredTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Task[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isMenuCollapsed"></a>
+                    <span class="name">
+                        <span ><b>isMenuCollapsed</b></span>
+                        <a href="#isMenuCollapsed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menuItems"></a>
+                    <span class="name">
+                        <span ><b>menuItems</b></span>
+                        <a href="#menuItems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      label: &#x27;Dashboard&#x27;,
+      icon: &#x27;bi bi-speedometer2&#x27;,
+      route: &#x27;/dashboard&#x27;,
+      roles: [UserRole.ADMIN, UserRole.CLIENT]
+    },
+    {
+      label: &#x27;Mis Tareas&#x27;,
+      icon: &#x27;bi bi-list-task&#x27;,
+      route: &#x27;/tasks&#x27;,
+      roles: [UserRole.CLIENT]
+    },
+    {
+      label: &#x27;Crear Tarea&#x27;,
+      icon: &#x27;bi bi-plus-circle&#x27;,
+      route: &#x27;/tasks/create&#x27;,
+      roles: [UserRole.CLIENT]
+    },
+    {
+      label: &#x27;Panel Admin&#x27;,
+      icon: &#x27;bi bi-gear&#x27;,
+      route: &#x27;/admin&#x27;,
+      roles: [UserRole.ADMIN]
+    },
+    {
+      label: &#x27;Gestión Usuarios&#x27;,
+      icon: &#x27;bi bi-people&#x27;,
+      route: &#x27;/admin/users&#x27;,
+      roles: [UserRole.ADMIN]
+    },
+    {
+      label: &#x27;Gestión Tareas&#x27;,
+      icon: &#x27;bi bi-kanban&#x27;,
+      route: &#x27;/admin/tasks&#x27;,
+      roles: [UserRole.ADMIN]
+    },
+    {
+      label: &#x27;Mi Perfil&#x27;,
+      icon: &#x27;bi bi-person&#x27;,
+      route: &#x27;/profile&#x27;,
+      roles: [UserRole.ADMIN, UserRole.CLIENT]
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="overdueTasks"></a>
+                    <span class="name">
+                        <span ><b>overdueTasks</b></span>
+                        <a href="#overdueTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pendingTasks"></a>
+                    <span class="name">
+                        <span ><b>pendingTasks</b></span>
+                        <a href="#pendingTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchTerm"></a>
+                    <span class="name">
+                        <span ><b>searchTerm</b></span>
+                        <a href="#searchTerm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="taskForm"></a>
+                    <span class="name">
+                        <span ><b>taskForm</b></span>
+                        <a href="#taskForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tasks"></a>
+                    <span class="name">
+                        <span ><b>tasks</b></span>
+                        <a href="#tasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Task[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from &#x27;@angular/forms&#x27;;
+import { Router, RouterModule } from &#x27;@angular/router&#x27;;
+import { CommonModule, DatePipe } from &#x27;@angular/common&#x27;;
+import { AuthService, User, UserRole } from &#x27;../../services/auth.service&#x27;;
+import { TaskService, Task } from &#x27;../../services/task.service&#x27;;
+
+interface MenuItem {
+  label: string;
+  icon: string;
+  route: string;
+  roles: UserRole[];
+}
+
+/**
+ * Componente principal del dashboard
+ * Muestra el menú dinámico según el rol del usuario y las estadísticas
+ */
+@Component({
+  selector: &#x27;app-dashboard&#x27;,
+  templateUrl: &#x27;./dashboard.component.html&#x27;,
+  styleUrls: [&#x27;./dashboard.component.scss&#x27;],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, DatePipe]
+})
+export class DashboardComponent implements OnInit {
+  taskForm: FormGroup;
+  tasks: Task[] &#x3D; [];
+  filteredTasks: Task[] &#x3D; [];
+  currentFilter: string &#x3D; &#x27;all&#x27;;
+  currentCategory: string &#x3D; &#x27;all&#x27;;
+  currentSort: string &#x3D; &#x27;date&#x27;;
+  searchTerm: string &#x3D; &#x27;&#x27;;
+  currentUser: User | null &#x3D; null;
+  isMenuCollapsed: boolean &#x3D; false;
+
+  // Estadísticas
+  pendingTasks: number &#x3D; 0;
+  completedTasks: number &#x3D; 0;
+  overdueTasks: number &#x3D; 0;
+  categoryStats: { [key: string]: number } &#x3D; {};
+
+  // Menú dinámico según rol
+  menuItems: MenuItem[] &#x3D; [
+    {
+      label: &#x27;Dashboard&#x27;,
+      icon: &#x27;bi bi-speedometer2&#x27;,
+      route: &#x27;/dashboard&#x27;,
+      roles: [UserRole.ADMIN, UserRole.CLIENT]
+    },
+    {
+      label: &#x27;Mis Tareas&#x27;,
+      icon: &#x27;bi bi-list-task&#x27;,
+      route: &#x27;/tasks&#x27;,
+      roles: [UserRole.CLIENT]
+    },
+    {
+      label: &#x27;Crear Tarea&#x27;,
+      icon: &#x27;bi bi-plus-circle&#x27;,
+      route: &#x27;/tasks/create&#x27;,
+      roles: [UserRole.CLIENT]
+    },
+    {
+      label: &#x27;Panel Admin&#x27;,
+      icon: &#x27;bi bi-gear&#x27;,
+      route: &#x27;/admin&#x27;,
+      roles: [UserRole.ADMIN]
+    },
+    {
+      label: &#x27;Gestión Usuarios&#x27;,
+      icon: &#x27;bi bi-people&#x27;,
+      route: &#x27;/admin/users&#x27;,
+      roles: [UserRole.ADMIN]
+    },
+    {
+      label: &#x27;Gestión Tareas&#x27;,
+      icon: &#x27;bi bi-kanban&#x27;,
+      route: &#x27;/admin/tasks&#x27;,
+      roles: [UserRole.ADMIN]
+    },
+    {
+      label: &#x27;Mi Perfil&#x27;,
+      icon: &#x27;bi bi-person&#x27;,
+      route: &#x27;/profile&#x27;,
+      roles: [UserRole.ADMIN, UserRole.CLIENT]
+    }
+  ];
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private taskService: TaskService
+  ) {
+    this.taskForm &#x3D; this.fb.group({
+      title: [&#x27;&#x27;, [Validators.required]],
+      category: [&#x27;&#x27;, [Validators.required]],
+      priority: [&#x27;&#x27;, [Validators.required]],
+      dueDate: [&#x27;&#x27;, [Validators.required]]
+    });
+  }
+
+  ngOnInit(): void {
+    this.currentUser &#x3D; this.authService.getCurrentUser();
+    if (!this.currentUser) {
+      this.router.navigate([&#x27;/login&#x27;]);
+      return;
+    }
+
+    this.loadTasks();
+
+    // Suscribirse a los cambios en las tareas
+    this.taskService.tasks$.subscribe(() &#x3D;&gt; {
+      this.loadTasks();
+    });
+  }
+
+  /**
+   * Obtiene los elementos del menú filtrados por el rol del usuario actual
+   */
+  getMenuItems(): MenuItem[] {
+    return this.menuItems.filter(item &#x3D;&gt; 
+      item.roles.includes(this.currentUser?.role || UserRole.CLIENT)
+    );
+  }
+
+  /**
+   * Verifica si el usuario actual tiene un rol específico
+   */
+  hasRole(role: UserRole): boolean {
+    return this.authService.hasRole(role);
+  }
+
+  /**
+   * Verifica si el usuario actual es administrador
+   */
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  /**
+   * Verifica si el usuario actual es cliente
+   */
+  isClient(): boolean {
+    return this.authService.isClient();
+  }
+
+  /**
+   * Carga las tareas del usuario
+   */
+  loadTasks(): void {
+    this.tasks &#x3D; this.taskService.getTasks();
+    this.updateFilteredTasks();
+    this.updateStats();
+  }
+
+  /**
+   * Maneja el envío del formulario de nueva tarea
+   */
+  onSubmit(): void {
+    if (this.taskForm.valid) {
+      this.taskService.addTask(this.taskForm.value);
+      this.taskForm.reset();
+    }
+  }
+
+  /**
+   * Actualiza las tareas filtradas según los criterios actuales
+   */
+  updateFilteredTasks(): void {
+    let filtered &#x3D; this.taskService.getTasksByFilter(this.currentFilter);
+    
+    if (this.currentCategory !&#x3D;&#x3D; &#x27;all&#x27;) {
+      filtered &#x3D; this.taskService.getTasksByCategory(this.currentCategory);
+    }
+    
+    if (this.searchTerm) {
+      filtered &#x3D; this.taskService.searchTasks(this.searchTerm);
+    }
+
+    this.filteredTasks &#x3D; filtered;
+    this.sortTasks();
+  }
+
+  /**
+   * Ordena las tareas según el criterio seleccionado
+   */
+  sortTasks(): void {
+    switch (this.currentSort) {
+      case &#x27;date&#x27;:
+        this.filteredTasks.sort((a, b) &#x3D;&gt; new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        break;
+      case &#x27;priority&#x27;:
+        const priorityOrder &#x3D; { high: 3, medium: 2, low: 1 };
+        this.filteredTasks.sort((a, b) &#x3D;&gt; priorityOrder[b.priority] - priorityOrder[a.priority]);
+        break;
+      case &#x27;category&#x27;:
+        this.filteredTasks.sort((a, b) &#x3D;&gt; a.category.localeCompare(b.category));
+        break;
+    }
+  }
+
+  /**
+   * Actualiza las estadísticas de las tareas
+   */
+  updateStats(): void {
+    const stats &#x3D; this.taskService.getTaskStats();
+    this.pendingTasks &#x3D; stats.pending;
+    this.completedTasks &#x3D; stats.completed;
+    this.overdueTasks &#x3D; stats.overdue;
+    this.categoryStats &#x3D; stats.categories;
+  }
+
+  /**
+   * Cambia el estado de completado de una tarea
+   */
+  toggleTaskComplete(task: Task): void {
+    this.taskService.toggleTaskComplete(task.id);
+  }
+
+  /**
+   * Elimina una tarea
+   */
+  deleteTask(taskId: number): void {
+    if (confirm(&#x27;¿Estás seguro de que quieres eliminar esta tarea?&#x27;)) {
+      this.taskService.deleteTask(taskId);
+    }
+  }
+
+  /**
+   * Establece el filtro de tareas
+   */
+  setFilter(filter: string): void {
+    this.currentFilter &#x3D; filter;
+    this.updateFilteredTasks();
+  }
+
+  /**
+   * Establece la categoría de filtro
+   */
+  setCategory(category: string): void {
+    this.currentCategory &#x3D; category;
+    this.updateFilteredTasks();
+  }
+
+  /**
+   * Establece el orden de las tareas
+   */
+  setSort(sort: string): void {
+    this.currentSort &#x3D; sort;
+    this.sortTasks();
+  }
+
+  /**
+   * Maneja la búsqueda de tareas
+   */
+  onSearch(term: string): void {
+    this.searchTerm &#x3D; term;
+    this.updateFilteredTasks();
+  }
+
+  /**
+   * Verifica si una tarea está vencida
+   */
+  isOverdue(task: Task): boolean {
+    return !task.completed &amp;&amp; new Date(task.dueDate) &lt; new Date();
+  }
+
+  /**
+   * Alterna el estado del menú lateral
+   */
+  toggleMenu(): void {
+    this.isMenuCollapsed &#x3D; !this.isMenuCollapsed;
+  }
+
+  /**
+   * Cierra la sesión del usuario
+   */
+  logout(): void {
+    if (confirm(&#x27;¿Estás seguro de que quieres cerrar sesión?&#x27;)) {
+      this.authService.logout();
+    }
+  }
+
+  /**
+   * Obtiene las estadísticas de categorías en formato de array
+   */
+  getCategoryStats(): Array&lt;{name: string, count: number}&gt; {
+    return Object.entries(this.categoryStats).map(([name, count]) &#x3D;&gt; ({
+      name: name.charAt(0).toUpperCase() + name.slice(1),
+      count
+    }));
+  }
+
+  /**
+   * Navega a una ruta específica
+   */
+  navigateTo(route: string): void {
+    this.router.navigate([route]);
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;dashboard-container&quot;&gt;
+  &lt;!-- Sidebar --&gt;
+  &lt;nav class&#x3D;&quot;sidebar&quot; [class.collapsed]&#x3D;&quot;isMenuCollapsed&quot;&gt;
+    &lt;div class&#x3D;&quot;sidebar-header&quot;&gt;
+      &lt;div class&#x3D;&quot;brand&quot;&gt;
+        &lt;i class&#x3D;&quot;bi bi-check2-square&quot;&gt;&lt;/i&gt;
+        &lt;span *ngIf&#x3D;&quot;!isMenuCollapsed&quot;&gt;TaskFlow&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;button class&#x3D;&quot;btn btn-link sidebar-toggle&quot; (click)&#x3D;&quot;toggleMenu()&quot;&gt;
+        &lt;i class&#x3D;&quot;bi&quot; [class.bi-chevron-left]&#x3D;&quot;!isMenuCollapsed&quot; [class.bi-chevron-right]&#x3D;&quot;isMenuCollapsed&quot;&gt;&lt;/i&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;sidebar-user&quot;&gt;
+      &lt;div class&#x3D;&quot;user-avatar&quot;&gt;
+        &lt;i class&#x3D;&quot;bi bi-person-circle&quot;&gt;&lt;/i&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;user-info&quot; *ngIf&#x3D;&quot;!isMenuCollapsed&quot;&gt;
+        &lt;div class&#x3D;&quot;user-name&quot;&gt;{{ currentUser?.firstName }} {{ currentUser?.lastName }}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;user-role&quot;&gt;{{ currentUser?.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27; ? &#x27;Administrador&#x27; : &#x27;Cliente&#x27; }}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;ul class&#x3D;&quot;sidebar-menu&quot;&gt;
+      &lt;li *ngFor&#x3D;&quot;let item of getMenuItems()&quot; class&#x3D;&quot;sidebar-item&quot;&gt;
+        &lt;a class&#x3D;&quot;sidebar-link&quot; 
+           [routerLink]&#x3D;&quot;[item.route]&quot; 
+           routerLinkActive&#x3D;&quot;active&quot;
+           [title]&#x3D;&quot;isMenuCollapsed ? item.label : &#x27;&#x27;&quot;&gt;
+          &lt;i [class]&#x3D;&quot;item.icon&quot;&gt;&lt;/i&gt;
+          &lt;span *ngIf&#x3D;&quot;!isMenuCollapsed&quot;&gt;{{ item.label }}&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;div class&#x3D;&quot;sidebar-footer&quot; *ngIf&#x3D;&quot;!isMenuCollapsed&quot;&gt;
+      &lt;button class&#x3D;&quot;btn btn-outline-danger w-100&quot; (click)&#x3D;&quot;logout()&quot;&gt;
+        &lt;i class&#x3D;&quot;bi bi-box-arrow-right me-2&quot;&gt;&lt;/i&gt;
+        Cerrar Sesión
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+  &lt;!-- Main Content --&gt;
+  &lt;div class&#x3D;&quot;main-content&quot; [class.sidebar-collapsed]&#x3D;&quot;isMenuCollapsed&quot;&gt;
+    &lt;!-- Top Navigation --&gt;
+    &lt;nav class&#x3D;&quot;top-nav&quot;&gt;
+      &lt;div class&#x3D;&quot;top-nav-left&quot;&gt;
+        &lt;button class&#x3D;&quot;btn btn-link d-lg-none&quot; (click)&#x3D;&quot;toggleMenu()&quot;&gt;
+          &lt;i class&#x3D;&quot;bi bi-list&quot;&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;h1 class&#x3D;&quot;page-title&quot;&gt;Dashboard&lt;/h1&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;top-nav-right&quot;&gt;
+        &lt;div class&#x3D;&quot;user-dropdown&quot;&gt;
+          &lt;button class&#x3D;&quot;btn btn-outline-primary dropdown-toggle&quot; type&#x3D;&quot;button&quot; data-bs-toggle&#x3D;&quot;dropdown&quot;&gt;
+            &lt;i class&#x3D;&quot;bi bi-person-circle me-2&quot;&gt;&lt;/i&gt;
+            {{ currentUser?.firstName }}
+          &lt;/button&gt;
+          &lt;ul class&#x3D;&quot;dropdown-menu&quot;&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; [routerLink]&#x3D;&quot;[&#x27;/profile&#x27;]&quot;&gt;
+              &lt;i class&#x3D;&quot;bi bi-person me-2&quot;&gt;&lt;/i&gt;Mi Perfil
+            &lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;hr class&#x3D;&quot;dropdown-divider&quot;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item text-danger&quot; (click)&#x3D;&quot;logout()&quot;&gt;
+              &lt;i class&#x3D;&quot;bi bi-box-arrow-right me-2&quot;&gt;&lt;/i&gt;Cerrar Sesión
+            &lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+
+    &lt;!-- Dashboard Content --&gt;
+    &lt;div class&#x3D;&quot;dashboard-content&quot;&gt;
+      &lt;!-- Stats Cards --&gt;
+      &lt;div class&#x3D;&quot;row mb-4&quot;&gt;
+        &lt;div class&#x3D;&quot;col-xl-3 col-md-6 mb-3&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-card stat-card-primary&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-card-icon&quot;&gt;
+              &lt;i class&#x3D;&quot;bi bi-list-task&quot;&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-card-content&quot;&gt;
+              &lt;h3 class&#x3D;&quot;stat-card-number&quot;&gt;{{ pendingTasks }}&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;stat-card-label&quot;&gt;Tareas Pendientes&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-xl-3 col-md-6 mb-3&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-card stat-card-success&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-card-icon&quot;&gt;
+              &lt;i class&#x3D;&quot;bi bi-check-circle&quot;&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-card-content&quot;&gt;
+              &lt;h3 class&#x3D;&quot;stat-card-number&quot;&gt;{{ completedTasks }}&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;stat-card-label&quot;&gt;Tareas Completadas&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-xl-3 col-md-6 mb-3&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-card stat-card-warning&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-card-icon&quot;&gt;
+              &lt;i class&#x3D;&quot;bi bi-exclamation-triangle&quot;&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-card-content&quot;&gt;
+              &lt;h3 class&#x3D;&quot;stat-card-number&quot;&gt;{{ overdueTasks }}&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;stat-card-label&quot;&gt;Tareas Vencidas&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-xl-3 col-md-6 mb-3&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-card stat-card-info&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-card-icon&quot;&gt;
+              &lt;i class&#x3D;&quot;bi bi-graph-up&quot;&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-card-content&quot;&gt;
+              &lt;h3 class&#x3D;&quot;stat-card-number&quot;&gt;{{ tasks.length }}&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;stat-card-label&quot;&gt;Total de Tareas&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Quick Actions --&gt;
+      &lt;div class&#x3D;&quot;row mb-4&quot; *ngIf&#x3D;&quot;isClient()&quot;&gt;
+        &lt;div class&#x3D;&quot;col-12&quot;&gt;
+          &lt;div class&#x3D;&quot;card&quot;&gt;
+            &lt;div class&#x3D;&quot;card-body&quot;&gt;
+              &lt;h5 class&#x3D;&quot;card-title&quot;&gt;Acciones Rápidas&lt;/h5&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;col-md-4 mb-2&quot;&gt;
+                  &lt;a [routerLink]&#x3D;&quot;[&#x27;/tasks/create&#x27;]&quot; class&#x3D;&quot;btn btn-primary w-100&quot;&gt;
+                    &lt;i class&#x3D;&quot;bi bi-plus-circle me-2&quot;&gt;&lt;/i&gt;Crear Nueva Tarea
+                  &lt;/a&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;col-md-4 mb-2&quot;&gt;
+                  &lt;a [routerLink]&#x3D;&quot;[&#x27;/tasks&#x27;]&quot; class&#x3D;&quot;btn btn-outline-primary w-100&quot;&gt;
+                    &lt;i class&#x3D;&quot;bi bi-list-task me-2&quot;&gt;&lt;/i&gt;Ver Mis Tareas
+                  &lt;/a&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;col-md-4 mb-2&quot;&gt;
+                  &lt;a [routerLink]&#x3D;&quot;[&#x27;/profile&#x27;]&quot; class&#x3D;&quot;btn btn-outline-secondary w-100&quot;&gt;
+                    &lt;i class&#x3D;&quot;bi bi-person me-2&quot;&gt;&lt;/i&gt;Editar Perfil
+                  &lt;/a&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Admin Quick Actions --&gt;
+      &lt;div class&#x3D;&quot;row mb-4&quot; *ngIf&#x3D;&quot;isAdmin()&quot;&gt;
+        &lt;div class&#x3D;&quot;col-12&quot;&gt;
+          &lt;div class&#x3D;&quot;card&quot;&gt;
+            &lt;div class&#x3D;&quot;card-body&quot;&gt;
+              &lt;h5 class&#x3D;&quot;card-title&quot;&gt;Panel de Administración&lt;/h5&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;col-md-4 mb-2&quot;&gt;
+                  &lt;a [routerLink]&#x3D;&quot;[&#x27;/admin/users&#x27;]&quot; class&#x3D;&quot;btn btn-primary w-100&quot;&gt;
+                    &lt;i class&#x3D;&quot;bi bi-people me-2&quot;&gt;&lt;/i&gt;Gestionar Usuarios
+                  &lt;/a&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;col-md-4 mb-2&quot;&gt;
+                  &lt;a [routerLink]&#x3D;&quot;[&#x27;/admin/tasks&#x27;]&quot; class&#x3D;&quot;btn btn-outline-primary w-100&quot;&gt;
+                    &lt;i class&#x3D;&quot;bi bi-kanban me-2&quot;&gt;&lt;/i&gt;Gestionar Tareas
+                  &lt;/a&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;col-md-4 mb-2&quot;&gt;
+                  &lt;a [routerLink]&#x3D;&quot;[&#x27;/admin&#x27;]&quot; class&#x3D;&quot;btn btn-outline-secondary w-100&quot;&gt;
+                    &lt;i class&#x3D;&quot;bi bi-gear me-2&quot;&gt;&lt;/i&gt;Configuración
+                  &lt;/a&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Recent Tasks --&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-lg-8&quot;&gt;
+          &lt;div class&#x3D;&quot;card&quot;&gt;
+            &lt;div class&#x3D;&quot;card-header d-flex justify-content-between align-items-center&quot;&gt;
+              &lt;h5 class&#x3D;&quot;card-title mb-0&quot;&gt;Tareas Recientes&lt;/h5&gt;
+              &lt;div class&#x3D;&quot;btn-group&quot; role&#x3D;&quot;group&quot;&gt;
+                &lt;button 
+                  type&#x3D;&quot;button&quot; 
+                  class&#x3D;&quot;btn btn-sm&quot; 
+                  [class.btn-primary]&#x3D;&quot;currentFilter &#x3D;&#x3D;&#x3D; &#x27;all&#x27;&quot;
+                  [class.btn-outline-primary]&#x3D;&quot;currentFilter !&#x3D;&#x3D; &#x27;all&#x27;&quot;
+                  (click)&#x3D;&quot;setFilter(&#x27;all&#x27;)&quot;
+                &gt;Todas&lt;/button&gt;
+                &lt;button 
+                  type&#x3D;&quot;button&quot; 
+                  class&#x3D;&quot;btn btn-sm&quot; 
+                  [class.btn-primary]&#x3D;&quot;currentFilter &#x3D;&#x3D;&#x3D; &#x27;pending&#x27;&quot;
+                  [class.btn-outline-primary]&#x3D;&quot;currentFilter !&#x3D;&#x3D; &#x27;pending&#x27;&quot;
+                  (click)&#x3D;&quot;setFilter(&#x27;pending&#x27;)&quot;
+                &gt;Pendientes&lt;/button&gt;
+                &lt;button 
+                  type&#x3D;&quot;button&quot; 
+                  class&#x3D;&quot;btn btn-sm&quot; 
+                  [class.btn-primary]&#x3D;&quot;currentFilter &#x3D;&#x3D;&#x3D; &#x27;completed&#x27;&quot;
+                  [class.btn-outline-primary]&#x3D;&quot;currentFilter !&#x3D;&#x3D; &#x27;completed&#x27;&quot;
+                  (click)&#x3D;&quot;setFilter(&#x27;completed&#x27;)&quot;
+                &gt;Completadas&lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;card-body&quot;&gt;
+              &lt;div class&#x3D;&quot;list-group list-group-flush&quot;&gt;
+                &lt;div *ngFor&#x3D;&quot;let task of filteredTasks.slice(0, 5)&quot; 
+                     class&#x3D;&quot;list-group-item d-flex justify-content-between align-items-center&quot;&gt;
+                  &lt;div class&#x3D;&quot;d-flex align-items-center&quot;&gt;
+                    &lt;div class&#x3D;&quot;form-check me-3&quot;&gt;
+                      &lt;input 
+                        class&#x3D;&quot;form-check-input&quot; 
+                        type&#x3D;&quot;checkbox&quot; 
+                        [checked]&#x3D;&quot;task.completed&quot;
+                        (change)&#x3D;&quot;toggleTaskComplete(task)&quot;
+                      &gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                      &lt;h6 class&#x3D;&quot;mb-1&quot; [class.text-decoration-line-through]&#x3D;&quot;task.completed&quot;&gt;
+                        {{ task.title }}
+                      &lt;/h6&gt;
+                      &lt;small class&#x3D;&quot;text-muted&quot;&gt;
+                        &lt;span class&#x3D;&quot;badge bg-secondary me-2&quot;&gt;{{ task.category }}&lt;/span&gt;
+                        Vence: {{ task.dueDate | date:&#x27;dd/MM/yyyy&#x27; }}
+                      &lt;/small&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;task-actions&quot;&gt;
+                    &lt;span class&#x3D;&quot;badge&quot; 
+                          [class.bg-danger]&#x3D;&quot;task.priority &#x3D;&#x3D;&#x3D; &#x27;high&#x27;&quot;
+                          [class.bg-warning]&#x3D;&quot;task.priority &#x3D;&#x3D;&#x3D; &#x27;medium&#x27;&quot;
+                          [class.bg-success]&#x3D;&quot;task.priority &#x3D;&#x3D;&#x3D; &#x27;low&#x27;&quot;&gt;
+                      {{ task.priority &#x3D;&#x3D;&#x3D; &#x27;high&#x27; ? &#x27;Alta&#x27; : task.priority &#x3D;&#x3D;&#x3D; &#x27;medium&#x27; ? &#x27;Media&#x27; : &#x27;Baja&#x27; }}
+                    &lt;/span&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div *ngIf&#x3D;&quot;filteredTasks.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;text-center py-4&quot;&gt;
+                  &lt;i class&#x3D;&quot;bi bi-inbox text-muted&quot; style&#x3D;&quot;font-size: 2rem;&quot;&gt;&lt;/i&gt;
+                  &lt;p class&#x3D;&quot;text-muted mt-2&quot;&gt;No hay tareas para mostrar&lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;col-lg-4&quot;&gt;
+          &lt;div class&#x3D;&quot;card&quot;&gt;
+            &lt;div class&#x3D;&quot;card-header&quot;&gt;
+              &lt;h5 class&#x3D;&quot;card-title mb-0&quot;&gt;Estadísticas por Categoría&lt;/h5&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;card-body&quot;&gt;
+              &lt;div *ngFor&#x3D;&quot;let category of getCategoryStats()&quot; class&#x3D;&quot;d-flex justify-content-between align-items-center mb-2&quot;&gt;
+                &lt;span&gt;{{ category.name }}&lt;/span&gt;
+                &lt;span class&#x3D;&quot;badge bg-primary&quot;&gt;{{ category.count }}&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./dashboard.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.task-item {
+  transition: all 0.3s ease;
+  
+  &amp;:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.priority-high {
+  border-left: 4px solid #dc3545;
+}
+
+.priority-medium {
+  border-left: 4px solid #ffc107;
+}
+
+.priority-low {
+  border-left: 4px solid #28a745;
+}
+
+.category-badge {
+  font-size: 0.8em;
+  padding: 0.2em 0.6em;
+}
+
+.due-date {
+  font-size: 0.85em;
+  color: #6c757d;
+  
+  &amp;.overdue {
+    color: #dc3545;
+    font-weight: bold;
+  }
+}
+
+.task-actions {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.task-item:hover .task-actions {
+  opacity: 1;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+// Dashboard Layout
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+// Sidebar Styles
+.sidebar {
+  width: 280px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+
+  &amp;.collapsed {
+    width: 70px;
+    
+    .sidebar-link {
+      justify-content: center;
+      
+      span {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 991.98px) {
+    transform: translateX(-100%);
+    
+    &amp;.collapsed {
+      transform: translateX(0);
+      width: 280px;
+    }
+  }
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    
+    i {
+      font-size: 2rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .sidebar-toggle {
+    color: white;
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+    
+    &amp;:hover {
+      color: rgba(255,255,255,0.8);
+    }
+  }
+}
+
+.sidebar-user {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+
+  .user-avatar {
+    font-size: 2.5rem;
+    margin-right: 1rem;
+  }
+
+  .user-info {
+    .user-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .user-role {
+      font-size: 0.875rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+
+  .sidebar-item {
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+
+      i {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+        width: 20px;
+        text-align: center;
+      }
+
+      &amp;:hover {
+        background-color: rgba(255,255,255,0.1);
+        border-left-color: rgba(255,255,255,0.5);
+      }
+
+      &amp;.active {
+        background-color: rgba(255,255,255,0.2);
+        border-left-color: white;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.sidebar-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+// Main Content
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  transition: margin-left 0.3s ease;
+
+  &amp;.sidebar-collapsed {
+    margin-left: 70px;
+  }
+
+  @media (max-width: 991.98px) {
+    margin-left: 0;
+    
+    &amp;.sidebar-collapsed {
+      margin-left: 0;
+    }
+  }
+}
+
+// Top Navigation
+.top-nav {
+  background: white;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  .top-nav-left {
+    display: flex;
+    align-items: center;
+
+    .page-title {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+  }
+
+  .top-nav-right {
+    .user-dropdown {
+      .btn {
+        border-radius: 25px;
+        padding: 0.5rem 1rem;
+      }
+    }
+  }
+}
+
+// Dashboard Content
+.dashboard-content {
+  padding: 2rem;
+}
+
+// Stats Cards
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+
+  &amp;:hover {
+    transform: translateY(-5px);
+  }
+
+  .stat-card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    color: white;
+  }
+
+  .stat-card-content {
+    .stat-card-number {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .stat-card-label {
+      margin: 0;
+      color: #6c757d;
+      font-size: 0.875rem;
+    }
+  }
+
+  &amp;.stat-card-primary {
+    .stat-card-icon {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .stat-card-number {
+      color: #667eea;
+    }
+  }
+
+  &amp;.stat-card-success {
+    .stat-card-icon {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    }
+    .stat-card-number {
+      color: #11998e;
+    }
+  }
+
+  &amp;.stat-card-warning {
+    .stat-card-icon {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    .stat-card-number {
+      color: #f5576c;
+    }
+  }
+
+  &amp;.stat-card-info {
+    .stat-card-icon {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    .stat-card-number {
+      color: #4facfe;
+    }
+  }
+}
+
+// Cards
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+
+  .card-header {
+    background: white;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 1.25rem 1.5rem;
+
+    .card-title {
+      color: #333;
+      font-weight: 600;
+    }
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+}
+
+// Buttons
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &amp;:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+}
+
+// List Group
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem;
+
+  &amp;:last-child {
+    border-bottom: none;
+  }
+
+  &amp;:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+// Badges
+.badge {
+  border-radius: 6px;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+}
+
+// Responsive Design
+@media (max-width: 767.98px) {
+  .dashboard-content {
+    padding: 1rem;
+  }
+
+  .stat-card {
+    margin-bottom: 1rem;
+    
+    .stat-card-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+    }
+
+    .stat-card-number {
+      font-size: 1.5rem;
+    }
+  }
+
+  .top-nav {
+    padding: 1rem;
+    
+    .page-title {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .sidebar {
+    width: 100%;
+    
+    &amp;.collapsed {
+      width: 100%;
+    }
+  }
+
+  .main-content {
+    margin-left: 0;
+    
+    &amp;.sidebar-collapsed {
+      margin-left: 0;
+    }
+  }
+}
+
+// Animation for sidebar toggle
+.sidebar {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+// Overlay for mobile
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  display: none;
+
+  &amp;.show {
+    display: block;
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="dashboard-container">  <!-- Sidebar -->  <nav class="sidebar" [class.collapsed]="isMenuCollapsed">    <div class="sidebar-header">      <div class="brand">        <i class="bi bi-check2-square"></i>        <span *ngIf="!isMenuCollapsed">TaskFlow</span>      </div>      <button class="btn btn-link sidebar-toggle" (click)="toggleMenu()">        <i class="bi" [class.bi-chevron-left]="!isMenuCollapsed" [class.bi-chevron-right]="isMenuCollapsed"></i>      </button>    </div>    <div class="sidebar-user">      <div class="user-avatar">        <i class="bi bi-person-circle"></i>      </div>      <div class="user-info" *ngIf="!isMenuCollapsed">        <div class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</div>        <div class="user-role">{{ currentUser?.role === \'admin\' ? \'Administrador\' : \'Cliente\' }}</div>      </div>    </div>    <ul class="sidebar-menu">      <li *ngFor="let item of getMenuItems()" class="sidebar-item">        <a class="sidebar-link"            [routerLink]="[item.route]"            routerLinkActive="active"           [title]="isMenuCollapsed ? item.label : \'\'">          <i [class]="item.icon"></i>          <span *ngIf="!isMenuCollapsed">{{ item.label }}</span>        </a>      </li>    </ul>    <div class="sidebar-footer" *ngIf="!isMenuCollapsed">      <button class="btn btn-outline-danger w-100" (click)="logout()">        <i class="bi bi-box-arrow-right me-2"></i>        Cerrar Sesión      </button>    </div>  </nav>  <!-- Main Content -->  <div class="main-content" [class.sidebar-collapsed]="isMenuCollapsed">    <!-- Top Navigation -->    <nav class="top-nav">      <div class="top-nav-left">        <button class="btn btn-link d-lg-none" (click)="toggleMenu()">          <i class="bi bi-list"></i>        </button>        <h1 class="page-title">Dashboard</h1>      </div>      <div class="top-nav-right">        <div class="user-dropdown">          <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">            <i class="bi bi-person-circle me-2"></i>            {{ currentUser?.firstName }}          </button>          <ul class="dropdown-menu">            <li><a class="dropdown-item" [routerLink]="[\'/profile\']">              <i class="bi bi-person me-2"></i>Mi Perfil            </a></li>            <li><hr class="dropdown-divider"></li>            <li><a class="dropdown-item text-danger" (click)="logout()">              <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión            </a></li>          </ul>        </div>      </div>    </nav>    <!-- Dashboard Content -->    <div class="dashboard-content">      <!-- Stats Cards -->      <div class="row mb-4">        <div class="col-xl-3 col-md-6 mb-3">          <div class="stat-card stat-card-primary">            <div class="stat-card-icon">              <i class="bi bi-list-task"></i>            </div>            <div class="stat-card-content">              <h3 class="stat-card-number">{{ pendingTasks }}</h3>              <p class="stat-card-label">Tareas Pendientes</p>            </div>          </div>        </div>        <div class="col-xl-3 col-md-6 mb-3">          <div class="stat-card stat-card-success">            <div class="stat-card-icon">              <i class="bi bi-check-circle"></i>            </div>            <div class="stat-card-content">              <h3 class="stat-card-number">{{ completedTasks }}</h3>              <p class="stat-card-label">Tareas Completadas</p>            </div>          </div>        </div>        <div class="col-xl-3 col-md-6 mb-3">          <div class="stat-card stat-card-warning">            <div class="stat-card-icon">              <i class="bi bi-exclamation-triangle"></i>            </div>            <div class="stat-card-content">              <h3 class="stat-card-number">{{ overdueTasks }}</h3>              <p class="stat-card-label">Tareas Vencidas</p>            </div>          </div>        </div>        <div class="col-xl-3 col-md-6 mb-3">          <div class="stat-card stat-card-info">            <div class="stat-card-icon">              <i class="bi bi-graph-up"></i>            </div>            <div class="stat-card-content">              <h3 class="stat-card-number">{{ tasks.length }}</h3>              <p class="stat-card-label">Total de Tareas</p>            </div>          </div>        </div>      </div>      <!-- Quick Actions -->      <div class="row mb-4" *ngIf="isClient()">        <div class="col-12">          <div class="card">            <div class="card-body">              <h5 class="card-title">Acciones Rápidas</h5>              <div class="row">                <div class="col-md-4 mb-2">                  <a [routerLink]="[\'/tasks/create\']" class="btn btn-primary w-100">                    <i class="bi bi-plus-circle me-2"></i>Crear Nueva Tarea                  </a>                </div>                <div class="col-md-4 mb-2">                  <a [routerLink]="[\'/tasks\']" class="btn btn-outline-primary w-100">                    <i class="bi bi-list-task me-2"></i>Ver Mis Tareas                  </a>                </div>                <div class="col-md-4 mb-2">                  <a [routerLink]="[\'/profile\']" class="btn btn-outline-secondary w-100">                    <i class="bi bi-person me-2"></i>Editar Perfil                  </a>                </div>              </div>            </div>          </div>        </div>      </div>      <!-- Admin Quick Actions -->      <div class="row mb-4" *ngIf="isAdmin()">        <div class="col-12">          <div class="card">            <div class="card-body">              <h5 class="card-title">Panel de Administración</h5>              <div class="row">                <div class="col-md-4 mb-2">                  <a [routerLink]="[\'/admin/users\']" class="btn btn-primary w-100">                    <i class="bi bi-people me-2"></i>Gestionar Usuarios                  </a>                </div>                <div class="col-md-4 mb-2">                  <a [routerLink]="[\'/admin/tasks\']" class="btn btn-outline-primary w-100">                    <i class="bi bi-kanban me-2"></i>Gestionar Tareas                  </a>                </div>                <div class="col-md-4 mb-2">                  <a [routerLink]="[\'/admin\']" class="btn btn-outline-secondary w-100">                    <i class="bi bi-gear me-2"></i>Configuración                  </a>                </div>              </div>            </div>          </div>        </div>      </div>      <!-- Recent Tasks -->      <div class="row">        <div class="col-lg-8">          <div class="card">            <div class="card-header d-flex justify-content-between align-items-center">              <h5 class="card-title mb-0">Tareas Recientes</h5>              <div class="btn-group" role="group">                <button                   type="button"                   class="btn btn-sm"                   [class.btn-primary]="currentFilter === \'all\'"                  [class.btn-outline-primary]="currentFilter !== \'all\'"                  (click)="setFilter(\'all\')"                >Todas</button>                <button                   type="button"                   class="btn btn-sm"                   [class.btn-primary]="currentFilter === \'pending\'"                  [class.btn-outline-primary]="currentFilter !== \'pending\'"                  (click)="setFilter(\'pending\')"                >Pendientes</button>                <button                   type="button"                   class="btn btn-sm"                   [class.btn-primary]="currentFilter === \'completed\'"                  [class.btn-outline-primary]="currentFilter !== \'completed\'"                  (click)="setFilter(\'completed\')"                >Completadas</button>              </div>            </div>            <div class="card-body">              <div class="list-group list-group-flush">                <div *ngFor="let task of filteredTasks.slice(0, 5)"                      class="list-group-item d-flex justify-content-between align-items-center">                  <div class="d-flex align-items-center">                    <div class="form-check me-3">                      <input                         class="form-check-input"                         type="checkbox"                         [checked]="task.completed"                        (change)="toggleTaskComplete(task)"                      >                    </div>                    <div>                      <h6 class="mb-1" [class.text-decoration-line-through]="task.completed">                        {{ task.title }}                      </h6>                      <small class="text-muted">                        <span class="badge bg-secondary me-2">{{ task.category }}</span>                        Vence: {{ task.dueDate | date:\'dd/MM/yyyy\' }}                      </small>                    </div>                  </div>                  <div class="task-actions">                    <span class="badge"                           [class.bg-danger]="task.priority === \'high\'"                          [class.bg-warning]="task.priority === \'medium\'"                          [class.bg-success]="task.priority === \'low\'">                      {{ task.priority === \'high\' ? \'Alta\' : task.priority === \'medium\' ? \'Media\' : \'Baja\' }}                    </span>                  </div>                </div>                <div *ngIf="filteredTasks.length === 0" class="text-center py-4">                  <i class="bi bi-inbox text-muted" style="font-size: 2rem;"></i>                  <p class="text-muted mt-2">No hay tareas para mostrar</p>                </div>              </div>            </div>          </div>        </div>        <div class="col-lg-4">          <div class="card">            <div class="card-header">              <h5 class="card-title mb-0">Estadísticas por Categoría</h5>            </div>            <div class="card-body">              <div *ngFor="let category of getCategoryStats()" class="d-flex justify-content-between align-items-center mb-2">                <span>{{ category.name }}</span>                <span class="badge bg-primary">{{ category.count }}</span>              </div>            </div>          </div>        </div>      </div>    </div>  </div></div> </div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'App', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CreateTaskComponent', 'selector': 'app-create-task'},{'name': 'Dashboard', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'Profile', 'selector': 'app-profile'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'Recover', 'selector': 'app-recover'},{'name': 'RecoverComponent', 'selector': 'app-recover'},{'name': 'Register', 'selector': 'app-register'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TaskDetailComponent', 'selector': 'app-task-detail'},{'name': 'TaskManagementComponent', 'selector': 'app-task-management'},{'name': 'TasksComponent', 'selector': 'app-tasks'},{'name': 'UserManagementComponent', 'selector': 'app-user-management'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'DashboardComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DashboardComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
